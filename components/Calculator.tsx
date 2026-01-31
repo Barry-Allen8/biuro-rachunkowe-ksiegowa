@@ -1,5 +1,5 @@
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from './ui/Button';
 
@@ -40,7 +40,17 @@ export const Calculator: React.FC = () => {
     };
   }, [businessType, invoices, employees, isVatPayer]);
 
+  const [isCalculating, setIsCalculating] = useState(false);
+
+  useEffect(() => {
+    setIsCalculating(true);
+    const timer = setTimeout(() => setIsCalculating(false), 400); // 400ms "thinking" time
+    return () => clearTimeout(timer);
+  }, [businessType, invoices, employees, isVatPayer]);
+
+  // Existing submit logic... 
   const handleSubmitLead = async (e: React.FormEvent<HTMLFormElement>) => {
+    // ... existing logic
     e.preventDefault();
     setErrorMessage(null);
 
@@ -88,28 +98,28 @@ export const Calculator: React.FC = () => {
   };
 
   return (
-    <section id="calculator" className="py-24 bg-white">
+    <section id="calculator" className="py-32 bg-white">
       <div className="max-w-6xl mx-auto px-6">
         <div className="grid lg:grid-cols-2 gap-16 items-start">
 
           {/* Controls */}
-          <div className="space-y-8">
+          <div className="space-y-10">
             <div>
-              <h2 className="text-4xl font-bold mb-4">Oblicz koszt księgowości</h2>
-              <p className="text-gray-500 text-lg">Wycena dostosowana do Twoich potrzeb w 30 sekund.</p>
+              <h2 className="text-4xl lg:text-5xl font-medium mb-6 tracking-tight text-[#1D1D1F]">Oblicz koszt księgowości</h2>
+              <p className="text-gray-500 text-lg leading-relaxed">Wycena dostosowana do Twoich potrzeb w 30 sekund.</p>
             </div>
 
-            <div className="space-y-6">
+            <div className="space-y-8">
               <div>
-                <label className="block text-sm font-semibold mb-3">Typ działalności</label>
+                <label className="block text-sm font-semibold mb-3 text-[#1D1D1F]">Typ działalności</label>
                 <div className="grid grid-cols-3 gap-3">
                   {(['JDG', 'SPZOO', 'OTHER'] as const).map(type => (
                     <button
                       key={type}
                       onClick={() => setBusinessType(type)}
-                      className={`py-3 px-4 rounded-xl border transition-all text-sm font-medium ${businessType === type
-                        ? 'border-[#004D40] bg-[#004D40]/5 text-[#004D40]'
-                        : 'border-gray-200 text-gray-500 hover:border-gray-400'
+                      className={`py-3 px-4 rounded-xl border transition-all duration-300 ease-studio text-sm font-medium ${businessType === type
+                        ? 'border-[#004D40] bg-[#004D40]/5 text-[#004D40] shadow-sm'
+                        : 'border-gray-200 text-gray-500 hover:border-gray-300 hover:bg-gray-50'
                         }`}
                     >
                       {type === 'JDG' ? 'JDG' : type === 'SPZOO' ? 'Sp. z o.o.' : 'Inna'}
@@ -120,32 +130,32 @@ export const Calculator: React.FC = () => {
 
               <div>
                 <div className="flex justify-between mb-3">
-                  <label className="text-sm font-semibold">Liczba dokumentów / mies</label>
-                  <span className="text-[#004D40] font-bold">{invoices}</span>
+                  <label className="text-sm font-semibold text-[#1D1D1F]">Liczba dokumentów / mies</label>
+                  <span className="text-[#004D40] font-bold font-display">{invoices}</span>
                 </div>
                 <input
                   type="range" min="1" max="200" step="1"
                   value={invoices}
                   onChange={(e) => setInvoices(parseInt(e.target.value))}
-                  className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#004D40]"
+                  className="w-full h-2 bg-gray-100 rounded-full appearance-none cursor-pointer accent-[#004D40] hover:bg-gray-200 transition-colors"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-semibold mb-3">Pracownicy</label>
+                  <label className="block text-sm font-semibold mb-3 text-[#1D1D1F]">Pracownicy</label>
                   <input
                     type="number" min="0"
                     value={employees}
                     onChange={(e) => setEmployees(parseInt(e.target.value) || 0)}
-                    className="w-full p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#004D40] outline-none"
+                    className="w-full p-3 border border-gray-200 rounded-xl focus:ring-4 focus:ring-[#004D40]/10 focus:border-[#004D40] outline-none transition-all duration-300"
                   />
                 </div>
                 <div className="flex flex-col">
-                  <label className="text-sm font-semibold mb-3">Płatnik VAT</label>
+                  <label className="text-sm font-semibold mb-3 text-[#1D1D1F]">Płatnik VAT</label>
                   <button
                     onClick={() => setIsVatPayer(!isVatPayer)}
-                    className={`flex-1 rounded-xl border transition-all flex items-center justify-center font-medium ${isVatPayer ? 'bg-[#004D40] text-white border-[#004D40]' : 'border-gray-200 text-gray-500'
+                    className={`flex-1 rounded-xl border transition-all duration-300 ease-studio flex items-center justify-center font-medium ${isVatPayer ? 'bg-[#004D40] text-white border-[#004D40] shadow-lg shadow-[#004d40]/20' : 'border-gray-200 text-gray-500 hover:bg-gray-50'
                       }`}
                   >
                     {isVatPayer ? 'TAK' : 'NIE'}
@@ -164,22 +174,37 @@ export const Calculator: React.FC = () => {
               <div className="relative z-10">
                 <AnimatePresence mode="wait">
                   {!showLeadForm ? (
-                    <motion.div
-                      key="result"
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -20 }}
-                      className="text-center"
-                    >
-                      <p className="text-gray-400 mb-2 font-medium">Szacunkowy koszt netto</p>
-                      <div className="text-6xl font-bold mb-6 tracking-tight">
-                        {priceRange.min} - {priceRange.max} <span className="text-xl font-normal text-gray-500">PLN</span>
-                      </div>
-                      <p className="text-sm text-gray-500 mb-10">Dokładna cena zależy od specyfiki działalności. Umów się na darmową konsultację, aby otrzymać wiążącą ofertę.</p>
-                      <Button variant="primary" className="w-full" onClick={() => setShowLeadForm(true)}>
-                        Odbierz pełną wycenę
-                      </Button>
-                    </motion.div>
+                    isCalculating ? (
+                      <motion.div
+                        key="skeleton"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="text-center py-4"
+                      >
+                        <div className="h-4 bg-white/10 rounded-full w-32 mx-auto mb-6 animate-pulse" />
+                        <div className="h-16 bg-white/10 rounded-2xl w-64 mx-auto mb-10 animate-pulse" />
+                        <div className="h-12 bg-white/10 rounded-full w-full animate-pulse" />
+                      </motion.div>
+                    ) : (
+                      <motion.div
+                        key="result"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -20 }}
+                        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                        className="text-center"
+                      >
+                        <p className="text-gray-400 mb-2 font-medium">Szacunkowy koszt netto</p>
+                        <div className="text-6xl font-bold mb-6 tracking-tight">
+                          {priceRange.min} - {priceRange.max} <span className="text-xl font-normal text-gray-500">PLN</span>
+                        </div>
+                        <p className="text-sm text-gray-500 mb-10">Dokładna cena zależy od specyfiki działalności. Umów się na darmową konsultację, aby otrzymać wiążącą ofertę.</p>
+                        <Button variant="primary" className="w-full" onClick={() => setShowLeadForm(true)}>
+                          Odbierz pełną wycenę
+                        </Button>
+                      </motion.div>
+                    )
                   ) : isSubmitted ? (
                     <motion.div
                       key="success"

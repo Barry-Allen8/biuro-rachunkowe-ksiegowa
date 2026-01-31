@@ -44,27 +44,52 @@ const Hero = () => (
     <div className="max-w-7xl mx-auto px-6 w-full grid lg:grid-cols-2 gap-12 items-center z-10">
       <div className="max-w-2xl">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: { opacity: 0 },
+            visible: {
+              opacity: 1,
+              transition: { staggerChildren: 0.1, delayChildren: 0.1 }
+            }
+          }}
         >
-          <span className="inline-block px-4 py-1.5 bg-[#004D40]/5 text-[#004D40] rounded-full text-xs font-bold tracking-widest uppercase mb-6">
-            Bydgoszcz • Nakielska 156
-          </span>
-          <h1 className="text-6xl lg:text-8xl font-display font-extrabold leading-[1.1] mb-8 tracking-tight text-gradient">
-            Księgowość, która pracuje <span className="text-[#004D40]">dla Ciebie</span>
+          <motion.div variants={{ hidden: { y: 10, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } } }}>
+            <span className="inline-block px-4 py-1.5 bg-[#F5F5F7] text-[#1D1D1F] rounded-full text-xs font-semibold tracking-widest uppercase mb-8">
+              Bydgoszcz • Nakielska 156
+            </span>
+          </motion.div>
+
+          <h1 className="text-6xl lg:text-8xl font-display font-medium leading-[1.1] mb-8 tracking-tight text-[#1D1D1F]">
+            <motion.span className="block" variants={{ hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { duration: 1, ease: [0.16, 1, 0.3, 1] } } }}>
+              Księgowość,
+            </motion.span>
+            <motion.span className="block" variants={{ hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { duration: 1, ease: [0.16, 1, 0.3, 1] } } }}>
+              która pracuje
+            </motion.span>
+            <motion.span className="block text-[#004D40]" variants={{ hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { duration: 1, ease: [0.16, 1, 0.3, 1] } } }}>
+              dla Ciebie
+            </motion.span>
           </h1>
-          <p className="text-xl text-gray-500 mb-10 leading-relaxed max-w-lg">
+
+          <motion.p
+            variants={{ hidden: { opacity: 0 }, visible: { opacity: 1, transition: { duration: 1, delay: 0.4 } } }}
+            className="text-xl text-gray-500 mb-12 leading-relaxed max-w-lg"
+          >
             Nowoczesne podejście do finansów Twojej firmy. JDG, Spółki, Kadry i Płace w sercu Bydgoszczy.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4">
+          </motion.p>
+
+          <motion.div
+            className="flex flex-col sm:flex-row gap-4"
+            variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8, delay: 0.6 } } }}
+          >
             <Button variant="primary" onClick={() => document.getElementById('calculator')?.scrollIntoView()}>
-              Oblicz koszt księgowości
+              Oblicz koszt
             </Button>
-            <Button variant="outline" onClick={() => document.getElementById('contact')?.scrollIntoView()}>
+            <Button variant="secondary" onClick={() => document.getElementById('contact')?.scrollIntoView()}>
               Darmowa konsultacja
             </Button>
-          </div>
+          </motion.div>
         </motion.div>
       </div>
 
@@ -97,11 +122,11 @@ const Hero = () => (
 );
 
 const Services = () => (
-  <section id="services" className="py-24 bg-[#FAFAFA]">
+  <section id="services" className="py-32 bg-[#F9F9FB]">
     <div className="max-w-7xl mx-auto px-6">
-      <div className="text-center mb-20">
-        <h2 className="text-4xl lg:text-5xl font-bold mb-6">Kompleksowa obsługa</h2>
-        <p className="text-gray-500 max-w-2xl mx-auto text-lg">Wszystko, czego potrzebuje Twój biznes w jednym miejscu. Od rejestracji po optymalizację podatkową.</p>
+      <div className="text-center mb-24">
+        <h2 className="text-4xl lg:text-5xl font-medium mb-6 tracking-tight text-[#1D1D1F]">Kompleksowa obsługa</h2>
+        <p className="text-gray-500 max-w-2xl mx-auto text-lg leading-relaxed">Wszystko, czego potrzebuje Twój biznes w jednym miejscu. Od rejestracji po optymalizację podatkową.</p>
       </div>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -110,16 +135,16 @@ const Services = () => (
             key={s.id}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: idx * 0.1 }}
-            className="group bg-white p-10 rounded-[2.5rem] border border-gray-100 hover:border-[#004D40] transition-all hover:shadow-xl hover:shadow-[#004D40]/5"
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ delay: idx * 0.1, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="group bg-white p-10 rounded-[2rem] shadow-studio border border-transparent hover:shadow-studio-hover transition-all duration-500"
           >
-            <div className="w-14 h-14 bg-[#004D40]/5 text-[#004D40] rounded-2xl flex items-center justify-center mb-8 group-hover:bg-[#004D40] group-hover:text-white transition-colors">
+            <div className="w-14 h-14 bg-[#F5F5F7] text-[#1D1D1F] rounded-2xl flex items-center justify-center mb-8 group-hover:bg-[#004D40] group-hover:text-white transition-colors duration-300">
               <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={s.icon} />
               </svg>
             </div>
-            <h3 className="text-xl font-bold mb-4">{s.title}</h3>
+            <h3 className="text-xl font-bold mb-4 text-[#1D1D1F]">{s.title}</h3>
             <p className="text-gray-500 leading-relaxed text-sm">{s.description}</p>
           </motion.div>
         ))}
@@ -132,39 +157,46 @@ const Services = () => (
 const Calculator = React.lazy(() => import('./components/Calculator').then(module => ({ default: module.Calculator })));
 
 const WhyChooseUs = () => (
-  <section id="about" className="py-24 bg-white overflow-hidden">
+  <section id="about" className="py-32 bg-white overflow-hidden">
     <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-20 items-center">
       <div>
-        <h2 className="text-4xl lg:text-5xl font-bold mb-8">Dlaczego my?</h2>
+        <h2 className="text-4xl lg:text-5xl font-medium mb-8 tracking-tight text-[#1D1D1F]">Dlaczego my?</h2>
         <p className="text-xl text-gray-500 mb-12 leading-relaxed">Wierzymy, że księgowość to nie tylko cyfry, to fundament Twojego spokoju. Nasze biuro w Bydgoszczy łączy tradycyjną rzetelność z cyfrową wygodą.</p>
 
         <div className="space-y-8">
           {TRUST_FACTORS.map((f, i) => (
-            <div key={i} className="flex gap-6">
-              <div className="flex-shrink-0 w-12 h-12 bg-[#004D40] rounded-full flex items-center justify-center text-white">
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1, duration: 0.6 }}
+              className="flex gap-6 group"
+            >
+              <div className="flex-shrink-0 w-12 h-12 bg-[#F5F5F7] rounded-full flex items-center justify-center text-[#1D1D1F] group-hover:bg-[#004D40] group-hover:text-white transition-colors duration-300">
                 <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
               </div>
               <div>
-                <h4 className="font-bold text-lg mb-1">{f.title}</h4>
+                <h4 className="font-bold text-lg mb-1 text-[#1D1D1F]">{f.title}</h4>
                 <p className="text-gray-500">{f.description}</p>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
 
       <div className="relative">
-        <div className="aspect-square bg-[#1D1D1F] rounded-[3rem] p-12 flex flex-col justify-end text-white overflow-hidden group">
+        <div className="aspect-square bg-[#1D1D1F] rounded-[3rem] p-12 flex flex-col justify-end text-white overflow-hidden group shadow-2xl">
           <img
             src="https://picsum.photos/seed/office-bg/1000/1000"
             loading="lazy"
-            className="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:scale-105 transition-transform duration-700"
+            className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-[2s] ease-studio"
           />
-          <div className="relative z-10">
-            <p className="text-4xl font-bold mb-4">"Twoje finanse, nasza pasja."</p>
-            <p className="text-[#004D40] font-medium tracking-widest uppercase text-sm">Zofia Kowalska, Właścicielka</p>
+          <div className="relative z-10 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-700">
+            <p className="text-3xl lg:text-4xl font-medium mb-6 leading-tight">"Twoje finanse,<br />nasza pasja."</p>
+            <p className="text-white/80 font-medium tracking-widest uppercase text-xs">Zofia Kowalska, Właścicielka</p>
           </div>
         </div>
       </div>
@@ -173,7 +205,7 @@ const WhyChooseUs = () => (
 );
 
 const Contact = () => (
-  <section id="contact" className="py-24 bg-white">
+  <section id="contact" className="py-32 bg-white">
     <div className="max-w-7xl mx-auto px-6">
       <div className="bg-[#1D1D1F] rounded-[3rem] p-8 lg:p-16 text-white grid lg:grid-cols-2 gap-16 relative overflow-hidden">
         <div className="relative z-10">
@@ -261,7 +293,7 @@ export default function App() {
 
       {/* Sticky Mobile CTA */}
       <div className="fixed bottom-6 left-6 right-6 z-40 md:hidden">
-        <Button variant="primary" className="w-full shadow-2xl" onClick={() => window.location.href = 'tel:+48694908338'}>
+        <Button variant="primary" className="w-full shadow-studio-hover backdrop-blur-xl" onClick={() => window.location.href = 'tel:+48694908338'}>
           <svg className="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
           </svg>
