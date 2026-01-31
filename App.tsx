@@ -188,12 +188,13 @@ const WhyChooseUs = () => (
       </div>
 
       <div className="relative">
-        <div className="aspect-square bg-[#1D1D1F] rounded-[3rem] p-12 flex flex-col justify-end text-white overflow-hidden group shadow-2xl">
+        <div className="aspect-square bg-[#1D1D1F] rounded-[3rem] p-12 flex flex-col justify-end text-white overflow-hidden group shadow-2xl relative isolate transform-gpu">
           <img
             src="https://picsum.photos/seed/office-bg/1000/1000"
             loading="lazy"
-            className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-[2s] ease-studio"
+            className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-[2s] ease-studio will-change-transform"
           />
+          <div className="absolute inset-0 rounded-[3rem] ring-1 ring-white/10 pointer-events-none z-20"></div>
           <div className="relative z-10 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-700">
             <p className="text-3xl lg:text-4xl font-medium mb-6 leading-tight">"Twoje finanse,<br />nasza pasja."</p>
             <p className="text-white/80 font-medium tracking-widest uppercase text-xs">Zofia Kowalska, Właścicielka</p>
