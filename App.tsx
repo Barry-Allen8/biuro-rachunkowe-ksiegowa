@@ -14,6 +14,26 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Smooth scroll for anchor navigation
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    const targetId = e.currentTarget.getAttribute('href')?.substring(1);
+    if (!targetId) return;
+
+    const targetElement = document.getElementById(targetId);
+    if (!targetElement) return;
+
+    // Calculate header offset (account for both py-8 and py-4 states + some breathing room)
+    const headerOffset = 100;
+    const elementPosition = targetElement.getBoundingClientRect().top;
+    const offsetPosition = elementPosition + window.scrollY - headerOffset;
+
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: 'smooth'
+    });
+  };
+
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled ? 'glass py-4' : 'bg-transparent py-8'}`}>
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
@@ -25,10 +45,10 @@ const Header = () => {
         </div>
 
         <div className="hidden md:flex items-center gap-10 font-medium text-sm">
-          <a href="#services" className="hover:text-[#004D40] transition-colors">Usługi</a>
-          <a href="#about" className="hover:text-[#004D40] transition-colors">O biurze</a>
-          <a href="#calculator" className="hover:text-[#004D40] transition-colors">Cennik</a>
-          <a href="#contact" className="hover:text-[#004D40] transition-colors">Kontakt</a>
+          <a href="#services" onClick={handleNavClick} className="hover:text-[#004D40] transition-colors">Usługi</a>
+          <a href="#about" onClick={handleNavClick} className="hover:text-[#004D40] transition-colors">O biurze</a>
+          <a href="#calculator" onClick={handleNavClick} className="hover:text-[#004D40] transition-colors">Cennik</a>
+          <a href="#contact" onClick={handleNavClick} className="hover:text-[#004D40] transition-colors">Kontakt</a>
         </div>
 
         <Button variant="secondary" className="hidden sm:flex !py-2.5 !px-6 !text-sm" onClick={() => window.location.href = 'tel:+48694908338'}>
@@ -83,10 +103,26 @@ const Hero = () => (
             className="flex flex-col sm:flex-row gap-4"
             variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8, delay: 0.6 } } }}
           >
-            <Button variant="primary" onClick={() => document.getElementById('calculator')?.scrollIntoView()}>
+            <Button variant="primary" onClick={() => {
+              const target = document.getElementById('calculator');
+              if (target) {
+                const headerOffset = 100;
+                const elementPosition = target.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.scrollY - headerOffset;
+                window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+              }
+            }}>
               Oblicz koszt
             </Button>
-            <Button variant="secondary" onClick={() => document.getElementById('contact')?.scrollIntoView()}>
+            <Button variant="secondary" onClick={() => {
+              const target = document.getElementById('contact');
+              if (target) {
+                const headerOffset = 100;
+                const elementPosition = target.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.scrollY - headerOffset;
+                window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+              }
+            }}>
               Darmowa konsultacja
             </Button>
           </motion.div>
