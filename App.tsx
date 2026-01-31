@@ -241,13 +241,14 @@ const Contact = () => (
         </div>
 
         <div className="rounded-3xl overflow-hidden min-h-[400px] border border-white/5 relative z-10">
-          {/* Simple map placeholder - in real prod use Google Maps Embed API */}
+          {/* Fixed: Using standard Google Maps search embed (no API key required) */}
           <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m13!1m3!1d2393.7508499238385!2d17.94363247735313!3d53.124578191289195!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x470313f8373b754f%3A0x6b168e647c2084c8!2sNakielska%20156%2C%2085-391%20Bydgoszcz!5e0!3m2!1spl!2spl!4v1714420000000!5m2!1spl!2spl"
+            src="https://maps.google.com/maps?q=Nakielska+156/1+piętro,+85-391+Bydgoszcz,+Poland&output=embed"
             className="w-full h-full grayscale opacity-80 contrast-125"
             style={{ border: 0 }}
             allowFullScreen
             loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
           ></iframe>
         </div>
       </div>
