@@ -148,7 +148,16 @@ const Header = () => {
           </div>
 
           {/* CTA Buttons */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-4">
+            {/* Phone number display - visible when scrolled on desktop */}
+            <a
+              href={`tel:${BUSINESS_INFO.contact.phone}`}
+              className={`hidden lg:flex items-center gap-2 text-navy-700 hover:text-navy-900 transition-all duration-300 ${isScrolled ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+            >
+              <span className="text-sm font-medium">Zadzwoń:</span>
+              <span className="font-bold text-navy-900">{BUSINESS_INFO.contact.phone}</span>
+            </a>
+
             <Button
               variant="gold"
               size="sm"
@@ -158,7 +167,8 @@ const Header = () => {
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
               </svg>
-              Zadzwoń teraz
+              <span className="hidden lg:inline">Zadzwoń teraz</span>
+              <span className="lg:hidden">Zadzwoń</span>
             </Button>
 
             {/* Mobile menu button */}
@@ -235,10 +245,10 @@ const Hero = () => (
               Biuro Rachunkowe
             </motion.span>
             <motion.span className="block text-navy-900" variants={{ hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { duration: 0.8 } } }}>
-              w Bydgoszczy
+              Bydgoszcz
             </motion.span>
-            <motion.span className="block text-gradient-gold" variants={{ hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { duration: 0.8 } } }}>
-              Dla Twojego Biznesu
+            <motion.span className="block text-gradient-gold text-3xl sm:text-4xl lg:text-5xl xl:text-6xl mt-2" variants={{ hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { duration: 0.8 } } }}>
+              Kompleksowa Księgowość i Kadry
             </motion.span>
           </h1>
 
@@ -246,7 +256,7 @@ const Hero = () => (
             variants={{ hidden: { opacity: 0 }, visible: { opacity: 1, transition: { duration: 0.8, delay: 0.3 } } }}
             className="text-lg sm:text-xl text-navy-600 mb-8 leading-relaxed max-w-lg"
           >
-            Profesjonalna <strong>pełna księgowość</strong>, <strong>obsługa kadr i płac</strong> oraz doradztwo podatkowe. Certyfikat MF, ubezpieczenie OC. Zaufało nam ponad 150 firm.
+            Profesjonalna <strong>pełna księgowość</strong>, <strong>obsługa kadr i płac</strong>, <strong>KPiR</strong>, <strong>ryczałt</strong> oraz rozliczenia <strong>CIT</strong>, <strong>PIT</strong>, <strong>VAT</strong> i <strong>ZUS</strong>. Certyfikat MF, ubezpieczenie OC. Zaufało nam ponad 150 firm.
           </motion.p>
 
           {/* CTA Buttons */}
@@ -294,8 +304,10 @@ const Hero = () => (
           <div className="bg-white rounded-3xl p-8 shadow-elevated border border-navy-100">
             <img
               src="/hero-workspace.png"
-              alt="Profesjonalne biuro rachunkowe w Bydgoszczy"
+              alt="Biuro Rachunkowe Bydgoszcz ul. Nakielska 156 - profesjonalna księgowość, kadry i płace, rozliczenia CIT PIT VAT ZUS"
               className="w-full h-auto rounded-2xl"
+              loading="lazy"
+              decoding="async"
             />
 
             {/* Stats Overlay */}
@@ -358,6 +370,132 @@ const TrustBadgesSection = () => (
   </section>
 );
 
+// Certyfikaty i Bezpieczeństwo Section
+const CertyfikatySection = () => (
+  <section id="certyfikaty" className="py-20 lg:py-28 bg-gradient-to-br from-navy-900 via-navy-800 to-navy-900 relative overflow-hidden">
+    {/* Background decorative elements */}
+    <div className="absolute inset-0 opacity-10">
+      <div className="absolute top-10 right-10 w-72 h-72 bg-gold-400 rounded-full blur-3xl" />
+      <div className="absolute bottom-10 left-10 w-96 h-96 bg-emerald-400 rounded-full blur-3xl" />
+    </div>
+
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+      <div className="text-center mb-14">
+        <motion.span
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="inline-block px-4 py-2 bg-gold-500/20 text-gold-400 rounded-full text-sm font-semibold mb-4"
+        >
+          Gwarancja Bezpieczeństwa
+        </motion.span>
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold text-white mb-6"
+        >
+          Certyfikaty i Bezpieczeństwo
+        </motion.h2>
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="text-navy-200 max-w-2xl mx-auto text-lg"
+        >
+          Twoje finanse w profesjonalnych rękach. Działamy zgodnie z najwyższymi standardami branżowymi.
+        </motion.p>
+      </div>
+
+      <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        {/* Certyfikat Ministra Finansów */}
+        <motion.div
+          initial={{ opacity: 0, x: -30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="bg-white/5 backdrop-blur-sm rounded-3xl p-8 border border-white/10 hover:bg-white/10 transition-all duration-300"
+        >
+          <div className="w-16 h-16 bg-gold-500 rounded-2xl flex items-center justify-center mb-6">
+            <svg className="w-8 h-8 text-navy-900" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+            </svg>
+          </div>
+          <h3 className="text-2xl font-display font-bold text-white mb-3">
+            Certyfikat Ministra Finansów
+          </h3>
+          <p className="text-navy-200 leading-relaxed mb-4">
+            Posiadamy oficjalne uprawnienia wydane przez Ministra Finansów do usługowego prowadzenia ksiąg rachunkowych zgodnie z art. 76a ustawy o rachunkowości.
+          </p>
+          <ul className="space-y-2">
+            <li className="flex items-center gap-2 text-gold-400 text-sm">
+              <span className="w-1.5 h-1.5 bg-gold-400 rounded-full" />
+              Licencjonowana działalność księgowa
+            </li>
+            <li className="flex items-center gap-2 text-gold-400 text-sm">
+              <span className="w-1.5 h-1.5 bg-gold-400 rounded-full" />
+              Regularne szkolenia i aktualizacje
+            </li>
+          </ul>
+        </motion.div>
+
+        {/* Ubezpieczenie OC */}
+        <motion.div
+          initial={{ opacity: 0, x: 30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="bg-white/5 backdrop-blur-sm rounded-3xl p-8 border border-white/10 hover:bg-white/10 transition-all duration-300"
+        >
+          <div className="w-16 h-16 bg-emerald-500 rounded-2xl flex items-center justify-center mb-6">
+            <svg className="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+            </svg>
+          </div>
+          <h3 className="text-2xl font-display font-bold text-white mb-3">
+            Obowiązkowe Ubezpieczenie OC
+          </h3>
+          <p className="text-navy-200 leading-relaxed mb-4">
+            Posiadamy pełne ubezpieczenie odpowiedzialności cywilnej zawodowej, które chroni Twój biznes przed ewentualnymi szkodami wynikającymi z naszych usług.
+          </p>
+          <ul className="space-y-2">
+            <li className="flex items-center gap-2 text-emerald-400 text-sm">
+              <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full" />
+              Pełna ochrona Twojego biznesu
+            </li>
+            <li className="flex items-center gap-2 text-emerald-400 text-sm">
+              <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full" />
+              Zgodność z wymogami prawnymi
+            </li>
+          </ul>
+        </motion.div>
+      </div>
+
+      {/* Additional trust indicators */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.3 }}
+        className="mt-12 flex flex-wrap justify-center gap-6 text-center"
+      >
+        <div className="px-6 py-3 bg-white/5 rounded-full border border-white/10">
+          <span className="text-gold-400 font-bold">15+</span>
+          <span className="text-navy-200 ml-2">lat doświadczenia</span>
+        </div>
+        <div className="px-6 py-3 bg-white/5 rounded-full border border-white/10">
+          <span className="text-gold-400 font-bold">150+</span>
+          <span className="text-navy-200 ml-2">obsłużonych firm</span>
+        </div>
+        <div className="px-6 py-3 bg-white/5 rounded-full border border-white/10">
+          <span className="text-gold-400 font-bold">100%</span>
+          <span className="text-navy-200 ml-2">zgodność z RODO</span>
+        </div>
+      </motion.div>
+    </div>
+  </section>
+);
+
 // Services Section
 const Services = () => (
   <section id="services" className="py-24 lg:py-32 bg-white">
@@ -387,7 +525,7 @@ const Services = () => (
           viewport={{ once: true }}
           className="text-navy-600 max-w-2xl mx-auto text-lg"
         >
-          Od jednoosobowych działalności po duże spółki. Wszystko, czego potrzebuje Twój biznes w jednym miejscu.
+          Od JDG po spółki kapitałowe. KPiR, ryczałt, pełna księgowość, kadry i płace, rozliczenia podatków (CIT, PIT, VAT) i ZUS.
         </motion.p>
       </div>
 
@@ -634,27 +772,112 @@ const Pricing = () => (
 // Lazy load Calculator
 const Calculator = React.lazy(() => import('./components/Calculator').then(module => ({ default: module.Calculator })));
 
+// Form state type
+interface ContactFormState {
+  name: string;
+  email: string;
+  phone: string;
+  message: string;
+  gdpr: boolean;
+}
+
 // Contact Section
 const Contact = () => {
-  const [formState, setFormState] = useState({
+  const [formState, setFormState] = useState<ContactFormState>({
     name: '',
     email: '',
     phone: '',
     message: '',
     gdpr: false
   });
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+
+  // Validation functions
+  const validateName = (name: string): string | null => {
+    if (!name.trim()) return 'Imię i nazwisko jest wymagane';
+    if (name.trim().length < 3) return 'Imię i nazwisko musi mieć min. 3 znaki';
+    if (!/^[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ\s-]+$/.test(name)) return 'Imię i nazwisko może zawierać tylko litery';
+    return null;
+  };
+
+  const validateEmail = (email: string): string | null => {
+    if (!email.trim()) return 'Email jest wymagany';
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) return 'Nieprawidłowy format email';
+    return null;
+  };
+
+  const validatePhone = (phone: string): string | null => {
+    if (!phone.trim()) return 'Telefon jest wymagany';
+    // Polish phone format: +48 XXX XXX XXX or XXX XXX XXX or XXXXXXXXX
+    const phoneRegex = /^(\+48\s?)?(\d{3}\s?\d{3}\s?\d{3}|\d{9})$/;
+    const cleanPhone = phone.replace(/[\s-]/g, '');
+    if (!phoneRegex.test(cleanPhone) && !/^\+48\d{9}$/.test(cleanPhone)) {
+      return 'Nieprawidłowy format telefonu (np. +48 600 000 000)';
+    }
+    return null;
+  };
+
+  const validateField = (field: string, value: string | boolean) => {
+    let error: string | null = null;
+    switch (field) {
+      case 'name':
+        error = validateName(value as string);
+        break;
+      case 'email':
+        error = validateEmail(value as string);
+        break;
+      case 'phone':
+        error = validatePhone(value as string);
+        break;
+    }
+    setErrors((prev: Record<string, string>) => ({ ...prev, [field]: error || '' }));
+    return !error;
+  };
+
+  const handleBlur = (field: string) => {
+    validateField(field, formState[field as keyof typeof formState]);
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setSubmitError(null);
+
+    // Validate all fields
+    const nameValid = validateField('name', formState.name);
+    const emailValid = validateField('email', formState.email);
+    const phoneValid = validateField('phone', formState.phone);
+
+    if (!nameValid || !emailValid || !phoneValid) {
+      return;
+    }
+
+    if (!formState.gdpr) {
+      setErrors((prev: Record<string, string>) => ({ ...prev, gdpr: 'Zgoda RODO jest wymagana' }));
+      return;
+    }
+
     setIsSubmitting(true);
 
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    try {
+      // Simulate form submission
+      await new Promise((resolve, reject) => {
+        setTimeout(() => {
+          // 95% success rate simulation
+          if (Math.random() > 0.05) resolve(true);
+          else reject(new Error('Network error'));
+        }, 1500);
+      });
 
-    setIsSubmitting(false);
-    setIsSubmitted(true);
+      setIsSubmitting(false);
+      setIsSubmitted(true);
+    } catch {
+      setIsSubmitting(false);
+      setSubmitError('Wystąpił błąd podczas wysyłania. Spróbuj ponownie lub zadzwoń do nas.');
+    }
   };
 
   return (
@@ -707,6 +930,20 @@ const Contact = () => {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
+                {/* Error banner */}
+                {submitError && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="p-4 bg-red-50 border border-red-200 rounded-xl flex items-start gap-3"
+                  >
+                    <svg className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <p className="text-sm text-red-700">{submitError}</p>
+                  </motion.div>
+                )}
+
                 <div>
                   <label htmlFor="name" className="block text-sm font-semibold text-navy-900 mb-2">
                     Imię i Nazwisko *
@@ -714,12 +951,25 @@ const Contact = () => {
                   <input
                     type="text"
                     id="name"
-                    required
                     value={formState.name}
-                    onChange={(e) => setFormState(prev => ({ ...prev, name: e.target.value }))}
-                    className="input-premium"
+                    onChange={(e) => {
+                      setFormState(prev => ({ ...prev, name: e.target.value }));
+                      if (errors.name) validateField('name', e.target.value);
+                    }}
+                    onBlur={() => handleBlur('name')}
+                    className={`input-premium ${errors.name ? 'border-red-400 focus:border-red-500 focus:ring-red-200' : ''}`}
                     placeholder="Jan Kowalski"
+                    aria-invalid={!!errors.name}
+                    aria-describedby={errors.name ? 'name-error' : undefined}
                   />
+                  {errors.name && (
+                    <p id="name-error" className="mt-1.5 text-sm text-red-600 flex items-center gap-1">
+                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      {errors.name}
+                    </p>
+                  )}
                 </div>
 
                 <div className="grid sm:grid-cols-2 gap-6">
@@ -730,12 +980,25 @@ const Contact = () => {
                     <input
                       type="email"
                       id="email"
-                      required
                       value={formState.email}
-                      onChange={(e) => setFormState(prev => ({ ...prev, email: e.target.value }))}
-                      className="input-premium"
+                      onChange={(e) => {
+                        setFormState(prev => ({ ...prev, email: e.target.value }));
+                        if (errors.email) validateField('email', e.target.value);
+                      }}
+                      onBlur={() => handleBlur('email')}
+                      className={`input-premium ${errors.email ? 'border-red-400 focus:border-red-500 focus:ring-red-200' : ''}`}
                       placeholder="jan@firma.pl"
+                      aria-invalid={!!errors.email}
+                      aria-describedby={errors.email ? 'email-error' : undefined}
                     />
+                    {errors.email && (
+                      <p id="email-error" className="mt-1.5 text-sm text-red-600 flex items-center gap-1">
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        {errors.email}
+                      </p>
+                    )}
                   </div>
                   <div>
                     <label htmlFor="phone" className="block text-sm font-semibold text-navy-900 mb-2">
@@ -744,18 +1007,31 @@ const Contact = () => {
                     <input
                       type="tel"
                       id="phone"
-                      required
                       value={formState.phone}
-                      onChange={(e) => setFormState(prev => ({ ...prev, phone: e.target.value }))}
-                      className="input-premium"
+                      onChange={(e) => {
+                        setFormState(prev => ({ ...prev, phone: e.target.value }));
+                        if (errors.phone) validateField('phone', e.target.value);
+                      }}
+                      onBlur={() => handleBlur('phone')}
+                      className={`input-premium ${errors.phone ? 'border-red-400 focus:border-red-500 focus:ring-red-200' : ''}`}
                       placeholder="+48 600 000 000"
+                      aria-invalid={!!errors.phone}
+                      aria-describedby={errors.phone ? 'phone-error' : undefined}
                     />
+                    {errors.phone && (
+                      <p id="phone-error" className="mt-1.5 text-sm text-red-600 flex items-center gap-1">
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        {errors.phone}
+                      </p>
+                    )}
                   </div>
                 </div>
 
                 <div>
                   <label htmlFor="message" className="block text-sm font-semibold text-navy-900 mb-2">
-                    Wiadomość
+                    Wiadomość <span className="text-navy-400 font-normal">(opcjonalnie)</span>
                   </label>
                   <textarea
                     id="message"
@@ -771,22 +1047,48 @@ const Contact = () => {
                   <input
                     type="checkbox"
                     id="gdpr"
-                    required
                     checked={formState.gdpr}
-                    onChange={(e) => setFormState(prev => ({ ...prev, gdpr: e.target.checked }))}
-                    className="mt-1"
+                    onChange={(e) => {
+                      setFormState(prev => ({ ...prev, gdpr: e.target.checked }));
+                      if (errors.gdpr) setErrors((prev: Record<string, string>) => ({ ...prev, gdpr: '' }));
+                    }}
+                    className={`mt-1 w-4 h-4 rounded border-navy-300 text-gold-500 focus:ring-gold-500 ${errors.gdpr ? 'border-red-400' : ''}`}
                   />
-                  <label htmlFor="gdpr" className="text-sm text-navy-600">
-                    Wyrażam zgodę na przetwarzanie moich danych osobowych w celu odpowiedzi na zapytanie.
-                    <a href="/privacy-policy.html" target="_blank" rel="noopener noreferrer" className="text-navy-900 underline hover:no-underline ml-1">
-                      Polityka Prywatności
-                    </a>
-                  </label>
+                  <div>
+                    <label htmlFor="gdpr" className="text-sm text-navy-600">
+                      Wyrażam zgodę na przetwarzanie moich danych osobowych w celu odpowiedzi na zapytanie zgodnie z{' '}
+                      <a href="/privacy-policy.html" target="_blank" rel="noopener noreferrer" className="text-navy-900 underline hover:no-underline">
+                        Polityką Prywatności
+                      </a>
+                      . *
+                    </label>
+                    {errors.gdpr && (
+                      <p className="mt-1 text-sm text-red-600">{errors.gdpr}</p>
+                    )}
+                  </div>
                 </div>
 
                 <Button type="submit" variant="gold" className="w-full" disabled={isSubmitting}>
-                  {isSubmitting ? 'Wysyłanie...' : 'Wyślij wiadomość'}
+                  {isSubmitting ? (
+                    <span className="flex items-center justify-center gap-2">
+                      <svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                      </svg>
+                      Wysyłanie...
+                    </span>
+                  ) : (
+                    'Wyślij wiadomość'
+                  )}
                 </Button>
+
+                <p className="text-xs text-navy-400 text-center">
+                  Odpowiadamy w ciągu 2 godzin roboczych. Możesz też{' '}
+                  <a href={`tel:${BUSINESS_INFO.contact.phone}`} className="text-gold-600 hover:text-gold-700 font-medium">
+                    zadzwonić bezpośrednio
+                  </a>
+                  .
+                </p>
               </form>
             )}
           </motion.div>
@@ -985,6 +1287,7 @@ export default function App() {
       <Header />
       <Hero />
       <TrustBadgesSection />
+      <CertyfikatySection />
       <Services />
       <WhyChooseUs />
       <Pricing />

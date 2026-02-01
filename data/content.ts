@@ -32,50 +32,50 @@ export const SERVICES: Service[] = [
     id: "pelna-ksiegowosc",
     title: "Pełna Księgowość",
     shortTitle: "Pełna Księgowość Bydgoszcz",
-    description: "Kompleksowe prowadzenie ksiąg rachunkowych dla spółek z o.o., S.A., fundacji i stowarzyszeń. Profesjonalna obsługa zgodna z Ustawą o Rachunkowości.",
+    description: "Kompleksowe prowadzenie ksiąg rachunkowych dla spółek z o.o., S.A., fundacji i stowarzyszeń. Rozliczenia CIT, VAT i profesjonalna obsługa zgodna z Ustawą o Rachunkowości.",
     features: [
       "Prowadzenie ksiąg handlowych",
+      "Rozliczenia CIT i VAT",
       "Sprawozdania finansowe",
-      "Raporty dla zarządu",
-      "Audyt wewnętrzny"
+      "Raporty dla zarządu"
     ],
     icon: "M9 17v-2m3 2v-4m3 4v-6m2 10H5a2 2 0 01-2-2V5a2 2 0 012-2h14a2 2 0 012 2v12a2 2 0 01-2 2z"
   },
   {
     id: "kpir-ryczalt",
-    title: "KPiR i Ryczałt",
-    shortTitle: "Księgowa JDG Bydgoszcz",
-    description: "Profesjonalna obsługa jednoosobowych działalności gospodarczych. Pomoc w wyborze optymalnej formy opodatkowania i maksymalizacji zysków.",
+    title: "Księga Przychodów i Rozchodów",
+    shortTitle: "KPiR i Ryczałt Bydgoszcz",
+    description: "Profesjonalna obsługa jednoosobowych działalności gospodarczych (JDG). KPiR, ryczałt ewidencjonowany, rozliczenia PIT i VAT. Pomoc w wyborze optymalnej formy opodatkowania.",
     features: [
-      "Księga przychodów i rozchodów",
+      "Księga Przychodów i Rozchodów (KPiR)",
       "Ryczałt ewidencjonowany",
-      "Optymalizacja podatkowa",
-      "Rozliczenia PIT"
+      "Rozliczenia PIT i VAT",
+      "Optymalizacja podatkowa"
     ],
     icon: "M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
   },
   {
     id: "kadry-place",
-    title: "Kadry i Płace",
-    shortTitle: "Obsługa Kadr i Płac Bydgoszcz",
-    description: "Kompleksowa obsługa kadrowo-płacowa. Umowy o pracę, zlecenia, dzieło. Rozliczenia ZUS, PFRON i pełna dokumentacja pracownicza.",
+    title: "Obsługa Kadr i Płac",
+    shortTitle: "Kadry i Płace Bydgoszcz",
+    description: "Kompleksowa obsługa kadrowo-płacowa. Umowy o pracę, zlecenia, dzieło. Rozliczenia ZUS, PFRON, składki społeczne i pełna dokumentacja pracownicza.",
     features: [
-      "Listy płac i rozliczenia",
-      "Dokumentacja ZUS/PFRON",
-      "Umowy i aneksy",
-      "Akta osobowe"
+      "Listy płac i rozliczenia ZUS",
+      "Deklaracje ZUS i PFRON",
+      "Umowy o pracę i cywilnoprawne",
+      "Akta osobowe i dokumentacja"
     ],
     icon: "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
   },
   {
-    id: "doradztwo-podatkowe",
-    title: "Doradztwo Podatkowe",
-    shortTitle: "Doradca Podatkowy Bydgoszcz",
-    description: "Profesjonalne doradztwo w zakresie prawa podatkowego. Optymalizacja obciążeń, pomoc przy kontrolach skarbowych i reprezentacja przed US.",
+    id: "podatki-doradztwo",
+    title: "Podatki i Doradztwo",
+    shortTitle: "Doradztwo Podatkowe Bydgoszcz",
+    description: "Profesjonalne doradztwo w zakresie prawa podatkowego. Rozliczenia CIT, PIT, VAT. Optymalizacja obciążeń, pomoc przy kontrolach skarbowych i reprezentacja przed US.",
     features: [
+      "Rozliczenia CIT, PIT, VAT",
       "Optymalizacja podatkowa",
-      "Interpretacje podatkowe",
-      "Pomoc przy kontrolach",
+      "Pomoc przy kontrolach US",
       "Planowanie podatkowe"
     ],
     icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
@@ -135,67 +135,68 @@ export const TRUST_FACTORS = [
   }
 ];
 
-// Pricing tiers for the pricing section
+// Pricing tiers for the pricing section - JDG, Spółki, Kadry
 export const PRICING_TIERS = [
   {
-    id: "startup",
-    name: "Startup / JDG",
-    subtitle: "Dla jednoosobowych działalności",
+    id: "jdg",
+    name: "JDG / Ryczałt",
+    subtitle: "Jednoosobowa Działalność Gospodarcza",
     priceFrom: 250,
     priceTo: 400,
     currency: "PLN",
     period: "netto / mies.",
-    description: "Idealne dla początkujących przedsiębiorców i małych firm.",
+    description: "Idealne dla przedsiębiorców prowadzących jednoosobową działalność gospodarczą.",
     features: [
-      "Księga Przychodów i Rozchodów",
-      "Rozliczenia VAT",
-      "Deklaracje PIT",
+      "Księga Przychodów i Rozchodów (KPiR)",
+      "Ryczałt ewidencjonowany",
+      "Rozliczenia PIT i VAT",
+      "Deklaracje do Urzędu Skarbowego",
       "Kontakt mailowy i telefoniczny",
       "Dostęp do platformy online"
     ],
     highlighted: false,
-    cta: "Wybierz pakiet"
+    cta: "Zapytaj o wycenę"
   },
   {
     id: "spolki",
-    name: "Spółki z o.o.",
-    subtitle: "Dla spółek kapitałowych",
+    name: "Spółki",
+    subtitle: "Sp. z o.o., S.A., spółki osobowe",
     priceFrom: 700,
     priceTo: 1500,
     currency: "PLN",
     period: "netto / mies.",
-    description: "Kompleksowa obsługa dla spółek z ograniczoną odpowiedzialnością.",
+    description: "Kompleksowa pełna księgowość dla spółek kapitałowych i osobowych.",
     features: [
-      "Pełna księgowość",
-      "Sprawozdania finansowe",
+      "Pełna księgowość (księgi handlowe)",
       "Rozliczenia CIT i VAT",
+      "Sprawozdania finansowe",
       "Raporty zarządcze",
       "Dedykowany opiekun",
       "Priorytetowa obsługa"
     ],
     highlighted: true,
     badge: "Najpopularniejszy",
-    cta: "Wybierz pakiet"
+    cta: "Zapytaj o wycenę"
   },
   {
     id: "kadry",
     name: "Kadry i Płace",
-    subtitle: "Obsługa pracowników",
+    subtitle: "Obsługa kadr i płac",
     priceFrom: 60,
     priceTo: 100,
     currency: "PLN",
     period: "za pracownika / mies.",
-    description: "Profesjonalna obsługa kadrowo-płacowa dla firm każdej wielkości.",
+    description: "Profesjonalna obsługa kadrowo-płacowa. Rozliczenia ZUS, PFRON, dokumentacja pracownicza.",
     features: [
-      "Listy płac",
-      "Deklaracje ZUS",
+      "Listy płac i rozliczenia",
+      "Deklaracje ZUS i składki społeczne",
       "Umowy o pracę i cywilnoprawne",
-      "Akta osobowe",
+      "Akta osobowe pracowników",
       "Świadectwa pracy",
       "Rozliczenia PFRON"
     ],
     highlighted: false,
-    cta: "Wybierz pakiet"
+    cta: "Zapytaj o wycenę"
   }
 ];
 
@@ -249,8 +250,8 @@ export const FAQ_ITEMS = [
 
 // SEO metadata
 export const SEO_CONTENT = {
-  title: "Biuro Rachunkowe Bydgoszcz | Księgowa Nakielska | Pełna Księgowość",
-  description: "Profesjonalne biuro rachunkowe w Bydgoszczy przy ul. Nakielskiej 156. Pełna księgowość, KPiR, kadry i płace, doradztwo podatkowe. Certyfikat MF, ubezpieczenie OC. Zadzwoń: 694 908 338",
+  title: "Biuro Rachunkowe Bydgoszcz – Kompleksowa Księgowość i Kadry | Nakielska 156",
+  description: "Biuro Rachunkowe Bydgoszcz ul. Nakielska 156 – pełna księgowość, KPiR, ryczałt, kadry i płace. Rozliczenia CIT, PIT, VAT, ZUS. Certyfikat Ministra Finansów, ubezpieczenie OC. Tel: 694 908 338",
   keywords: [
     "biuro rachunkowe bydgoszcz",
     "księgowa bydgoszcz nakielska",
@@ -259,6 +260,12 @@ export const SEO_CONTENT = {
     "księgowość dla spółek bydgoszcz",
     "doradca podatkowy bydgoszcz",
     "KPiR bydgoszcz",
-    "rozliczenia VAT bydgoszcz"
+    "Księga Przychodów i Rozchodów",
+    "ryczałt bydgoszcz",
+    "rozliczenia VAT bydgoszcz",
+    "rozliczenia CIT bydgoszcz",
+    "rozliczenia PIT bydgoszcz",
+    "ZUS bydgoszcz",
+    "podatki bydgoszcz"
   ]
 };
