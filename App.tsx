@@ -240,14 +240,14 @@ const Hero = () => (
           </motion.div>
 
           {/* SEO-Optimized H1 */}
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-display font-bold leading-[1.1] mb-8 tracking-tight">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-display font-bold leading-[1.2] mb-8 tracking-tight overflow-visible">
             <motion.span className="block text-navy-900" variants={{ hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { duration: 0.8 } } }}>
               Biuro Rachunkowe
             </motion.span>
             <motion.span className="block text-navy-900" variants={{ hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { duration: 0.8 } } }}>
               Bydgoszcz
             </motion.span>
-            <motion.span className="block text-gradient-gold text-3xl sm:text-4xl lg:text-5xl xl:text-6xl mt-3 mb-2" variants={{ hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { duration: 0.8 } } }}>
+            <motion.span className="block text-gradient-gold text-3xl sm:text-4xl lg:text-5xl xl:text-6xl mt-3 mb-2 leading-[1.3] pb-1" variants={{ hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { duration: 0.8 } } }}>
               Kompleksowa Księgowość i Kadry
             </motion.span>
           </h1>
