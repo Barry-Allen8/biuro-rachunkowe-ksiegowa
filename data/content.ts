@@ -19,10 +19,10 @@ export const BUSINESS_INFO: BusinessData = {
     { days: "Sobota", hours: "Po wcześniejszym umówieniu" },
     { days: "Niedziela", hours: "Zamknięte" }
   ],
-  // Legal business identifiers
+  // Legal business identifiers - UPDATE WITH REAL VALUES
   legal: {
-    nip: "000-000-00-00", // Replace with actual NIP
-    regon: "000000000", // Replace with actual REGON
+    nip: "[ENTER_NIP]",
+    regon: "[ENTER_REGON]",
   }
 };
 

@@ -213,7 +213,7 @@ const Header = () => {
 
 // Hero Section
 const Hero = () => (
-  <header className="relative min-h-screen flex items-center pt-20 pb-20 lg:pb-28 overflow-hidden bg-gradient-to-br from-navy-50 via-white to-navy-50">
+  <header className="relative min-h-screen flex items-center py-24 lg:py-28 bg-gradient-to-br from-navy-50 via-white to-navy-50">
     {/* Background Pattern */}
     <div className="absolute inset-0 pattern-dots opacity-50" />
 
@@ -239,7 +239,7 @@ const Hero = () => (
             <motion.span className="block text-navy-900" variants={{ hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { duration: 0.8 } } }}>
               Bydgoszcz
             </motion.span>
-            <motion.span className="block text-gradient-gold text-3xl sm:text-4xl lg:text-5xl xl:text-6xl mt-3 mb-2 leading-[1.3] pb-1" variants={{ hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { duration: 0.8 } } }}>
+            <motion.span className="block text-gradient-gold text-3xl sm:text-4xl lg:text-5xl xl:text-6xl mt-3 mb-2 leading-relaxed pb-2" variants={{ hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { duration: 0.8 } } }}>
               Kompleksowa Księgowość i Kadry
             </motion.span>
           </h1>
@@ -291,7 +291,7 @@ const Hero = () => (
         transition={{ duration: 0.8, delay: 0.3 }}
         className="relative hidden lg:block"
       >
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-8">
           {/* Main Card */}
           <div className="bg-white rounded-3xl p-8 shadow-elevated border border-navy-100">
             <img
