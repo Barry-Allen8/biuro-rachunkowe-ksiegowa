@@ -146,12 +146,10 @@ const Hero = () => (
         className="relative hidden lg:block"
       >
         <div className="relative z-10 bg-white rounded-3xl elevated overflow-hidden border border-gray-100">
-          <img src="https://picsum.photos/seed/accountant/800/1000" alt="Office Professional" className="w-full h-auto grayscale hover:grayscale-0 transition-all duration-1000" />
+          <img src="/hero-workspace.png" alt="Professional Office Workspace" className="w-full h-auto grayscale hover:grayscale-0 transition-all duration-1000" />
           <div className="absolute bottom-8 left-8 right-8 bg-white/90 backdrop-blur p-6 rounded-2xl shadow-lg border border-white">
             <div className="flex items-center gap-4">
-              <div className="flex -space-x-2">
-                {[1, 2, 3].map(i => <div key={i} className="w-10 h-10 rounded-full border-2 border-white bg-gray-200 overflow-hidden"><img src={`https://picsum.photos/seed/${i}/100/100`} /></div>)}
-              </div>
+              {/* Decorative avatars removed - reduces stock photo feel */}
               <div>
                 <p className="text-sm font-bold">150+ Zadowolonych firm</p>
                 <p className="text-xs text-gray-500">Wspieramy lokalny biznes od lat.</p>
@@ -235,7 +233,7 @@ const WhyChooseUs = () => (
       <div className="relative">
         <div className="aspect-square bg-[#1D1D1F] rounded-[3rem] p-12 flex flex-col justify-end text-white overflow-hidden group elevated relative isolate transform-gpu">
           <img
-            src="https://picsum.photos/seed/office-bg/1000/1000"
+            src="/office-background.png"
             loading="lazy"
             className="absolute inset-0 w-full h-full object-cover opacity-60 transition-opacity duration-1000 group-hover:opacity-70"
           />

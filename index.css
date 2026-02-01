@@ -1,3 +1,48 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    /* Premium depth shadows - subtle, low-contrast, professional */
+    --shadow-depth-sm: 0 2px 8px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+    --shadow-depth-md: 0 4px 16px rgba(0, 0, 0, 0.06), 0 2px 4px rgba(0, 0, 0, 0.03);
+    --shadow-depth-lg: 0 8px 24px rgba(0, 0, 0, 0.08), 0 4px 8px rgba(0, 0, 0, 0.04);
+    --shadow-elevated: 0 12px 32px rgba(0, 0, 0, 0.1), 0 6px 12px rgba(0, 0, 0, 0.05);
+    
+    /* Surface hierarchy - neutral backgrounds for depth */
+    --surface-primary: #FFFFFF;
+    --surface-secondary: #F9F9FB;
+    --surface-tertiary: #F5F5F7;
+    
+    /* Premium spacing rhythm */
+    --spacing-breathe: 2rem;
+    --spacing-section: 8rem;
+  }
+  
+  /* Establish calm, deliberate motion */
+  * {
+    transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  
+  /* Remove playful effects from images */
+  img {
+    will-change: auto;
+  }
+}
+
+@layer utilities {
+  /* Depth utilities for grounded surfaces */
+  .depth-sm { box-shadow: var(--shadow-depth-sm); }
+  .depth-md { box-shadow: var(--shadow-depth-md); }
+  .depth-lg { box-shadow: var(--shadow-depth-lg); }
+  .elevated { box-shadow: var(--shadow-elevated); }
+  
+  /* Glass effect for header - subtle, professional */
+  .glass {
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(16px) saturate(180%);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
+  }
+}
