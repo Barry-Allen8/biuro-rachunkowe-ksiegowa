@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { SERVICES, BUSINESS_INFO, TRUST_FACTORS } from './data/content';
 // Calculator Imported Lazy below
 import { Button } from './components/ui/Button';
+import { CookieConsent } from './components/CookieConsent';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -44,7 +45,7 @@ const Header = () => {
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
         <button
           onClick={handleLogoClick}
-          className="flex items-center gap-2 cursor-pointer group transition-all duration-150 ease-out hover:opacity-80 hover:-translate-y-0.5 active:scale-[0.98] active:opacity-70"
+          className="flex items-center gap-2 cursor-pointer group transition-all duration-300 hover:opacity-75"
           aria-label="Scroll to top"
         >
           <div className="w-10 h-10 bg-[#004D40] rounded-lg flex items-center justify-center">
@@ -84,12 +85,12 @@ const Hero = () => (
           }}
         >
           <motion.div variants={{ hidden: { y: 10, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } } }}>
-            <span className="inline-block px-4 py-1.5 bg-[#F5F5F7] text-[#1D1D1F] rounded-full text-xs font-semibold tracking-widest uppercase mb-8">
+            <span className="inline-block px-4 py-1.5 bg-[#F5F5F7] text-gray-500 rounded-full text-xs font-medium tracking-widest uppercase mb-8 opacity-70">
               Bydgoszcz • Nakielska 156
             </span>
           </motion.div>
 
-          <h1 className="text-6xl lg:text-8xl font-display font-medium leading-[1.1] mb-8 tracking-tight text-[#1D1D1F]">
+          <h1 className="text-6xl lg:text-8xl font-display font-medium leading-[1.05] mb-8 tracking-tight text-[#1D1D1F]">
             <motion.span className="block" variants={{ hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { duration: 1, ease: [0.16, 1, 0.3, 1] } } }}>
               Księgowość,
             </motion.span>
@@ -103,7 +104,7 @@ const Hero = () => (
 
           <motion.p
             variants={{ hidden: { opacity: 0 }, visible: { opacity: 1, transition: { duration: 1, delay: 0.4 } } }}
-            className="text-xl text-gray-500 mb-12 leading-relaxed max-w-lg"
+            className="text-xl text-gray-400 mb-12 leading-relaxed max-w-lg"
           >
             Nowoczesne podejście do finansów Twojej firmy. JDG, Spółki, Kadry i Płace w sercu Bydgoszczy.
           </motion.p>
@@ -144,8 +145,8 @@ const Hero = () => (
         transition={{ duration: 1, delay: 0.2 }}
         className="relative hidden lg:block"
       >
-        <div className="relative z-10 bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100">
-          <img src="https://picsum.photos/seed/accountant/800/1000" alt="Office Professional" className="w-full h-auto grayscale hover:grayscale-0 transition-all duration-700" />
+        <div className="relative z-10 bg-white rounded-3xl elevated overflow-hidden border border-gray-100">
+          <img src="https://picsum.photos/seed/accountant/800/1000" alt="Office Professional" className="w-full h-auto grayscale hover:grayscale-0 transition-all duration-1000" />
           <div className="absolute bottom-8 left-8 right-8 bg-white/90 backdrop-blur p-6 rounded-2xl shadow-lg border border-white">
             <div className="flex items-center gap-4">
               <div className="flex -space-x-2">
@@ -158,9 +159,8 @@ const Hero = () => (
             </div>
           </div>
         </div>
-        {/* Decor */}
-        <div className="absolute -top-12 -right-12 w-64 h-64 bg-[#004D40]/5 rounded-full blur-3xl"></div>
-        <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-[#004D40]/10 rounded-full blur-[120px]"></div>
+        {/* Subtle depth accent - reduced decoration */}
+        <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-[#004D40]/5 rounded-full blur-[120px]"></div>
       </motion.div>
     </div>
   </header>
@@ -182,9 +182,9 @@ const Services = () => (
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ delay: idx * 0.1, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="group bg-white p-10 rounded-[2rem] shadow-studio border border-transparent hover:shadow-studio-hover transition-all duration-500"
+            className="group bg-white p-10 rounded-[2rem] depth-md hover:depth-lg border border-gray-50 transition-all duration-500"
           >
-            <div className="w-14 h-14 bg-[#F5F5F7] text-[#1D1D1F] rounded-2xl flex items-center justify-center mb-8 group-hover:bg-[#004D40] group-hover:text-white transition-colors duration-300">
+            <div className="w-14 h-14 bg-[#F5F5F7] text-[#1D1D1F] rounded-2xl flex items-center justify-center mb-8 group-hover:bg-[#004D40] group-hover:text-white transition-colors duration-500">
               <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={s.icon} />
               </svg>
@@ -218,7 +218,7 @@ const WhyChooseUs = () => (
               transition={{ delay: i * 0.1, duration: 0.6 }}
               className="flex gap-6 group"
             >
-              <div className="flex-shrink-0 w-12 h-12 bg-[#F5F5F7] rounded-full flex items-center justify-center text-[#1D1D1F] group-hover:bg-[#004D40] group-hover:text-white transition-colors duration-300">
+              <div className="flex-shrink-0 w-12 h-12 bg-[#F5F5F7] rounded-full flex items-center justify-center text-[#1D1D1F] group-hover:bg-[#004D40] group-hover:text-white transition-colors duration-500">
                 <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
@@ -233,11 +233,11 @@ const WhyChooseUs = () => (
       </div>
 
       <div className="relative">
-        <div className="aspect-square bg-[#1D1D1F] rounded-[3rem] p-12 flex flex-col justify-end text-white overflow-hidden group shadow-2xl relative isolate transform-gpu">
+        <div className="aspect-square bg-[#1D1D1F] rounded-[3rem] p-12 flex flex-col justify-end text-white overflow-hidden group elevated relative isolate transform-gpu">
           <img
             src="https://picsum.photos/seed/office-bg/1000/1000"
             loading="lazy"
-            className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-[2s] ease-studio will-change-transform"
+            className="absolute inset-0 w-full h-full object-cover opacity-60 transition-opacity duration-1000 group-hover:opacity-70"
           />
           {/* Ensure inner content respects card radius - no border-radius on overlay */}
           <div className="absolute inset-0 ring-1 ring-white/10 pointer-events-none z-20"></div>
@@ -313,9 +313,9 @@ const Footer = () => (
         </div>
 
         <div className="flex flex-wrap justify-center gap-8 text-sm text-gray-500">
-          <a href="#" className="hover:text-black transition-colors">Polityka Prywatności</a>
-          <a href="#" className="hover:text-black transition-colors">Cookies</a>
-          <a href="#" className="hover:text-black transition-colors">GDPR / RODO</a>
+          <a href="/privacy-policy.html" target="_blank" rel="noopener noreferrer" className="hover:text-black transition-colors">Polityka Prywatności</a>
+          <a href="/privacy-policy.html#cookies" target="_blank" rel="noopener noreferrer" className="hover:text-black transition-colors">Cookies</a>
+          <a href="/privacy-policy.html" target="_blank" rel="noopener noreferrer" className="hover:text-black transition-colors">GDPR / RODO</a>
         </div>
 
         <p className="text-xs text-gray-400">
@@ -338,6 +338,9 @@ export default function App() {
       </React.Suspense>
       <Contact />
       <Footer />
+
+      {/* Cookie Consent Banner */}
+      <CookieConsent />
 
       {/* Sticky Mobile CTA */}
       <div className="fixed bottom-6 left-6 right-6 z-40 md:hidden">

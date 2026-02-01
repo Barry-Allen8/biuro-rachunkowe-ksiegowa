@@ -169,7 +169,7 @@ export const Calculator: React.FC = () => {
           <div className="lg:sticky lg:top-32">
             <motion.div
               layout
-              className="bg-[#1D1D1F] text-white p-10 rounded-[2rem] shadow-2xl relative overflow-hidden"
+              className="bg-[#1D1D1F] text-white p-10 rounded-[2rem] elevated relative overflow-hidden"
             >
               <div className="relative z-10">
                 <AnimatePresence mode="wait">
@@ -240,7 +240,7 @@ export const Calculator: React.FC = () => {
                         <div className="flex items-start gap-3 mt-4">
                           <input required type="checkbox" name="gdpr" id="gdpr" className="mt-1 accent-[#004D40]" disabled={isLoading} />
                           <label htmlFor="gdpr" className="text-xs text-gray-500 leading-relaxed cursor-pointer">
-                            Wyrażam zgodę na przetwarzanie moich danych osobowych w celu przygotowania i przesłania oferty. <a href="#" className="underline">Polityka prywatności</a>.
+                            Wyrażam zgodę na przetwarzanie moich danych osobowych w celu przygotowania i przesłania oferty. <a href="/privacy-policy.html" target="_blank" rel="noopener noreferrer" className="underline">Polityka prywatności</a>.
                           </label>
                         </div>
 
@@ -257,8 +257,8 @@ export const Calculator: React.FC = () => {
                 </AnimatePresence>
               </div>
 
-              {/* Background Glow */}
-              <div className="absolute top-0 right-0 w-64 h-64 bg-[#004D40] opacity-10 blur-[100px] pointer-events-none"></div>
+              {/* Subtle depth accent - minimal decoration */}
+              <div className="absolute top-0 right-0 w-64 h-64 bg-[#004D40] opacity-5 blur-[100px] pointer-events-none"></div>
             </motion.div>
           </div>
         </div>
