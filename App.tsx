@@ -213,7 +213,7 @@ const Header = () => {
 
 // Hero Section
 const Hero = () => (
-  <header className="relative min-h-screen flex items-center pt-20 pb-16 lg:pb-20 overflow-hidden bg-gradient-to-br from-navy-50 via-white to-navy-50">
+  <header className="relative min-h-screen flex items-center pt-20 pb-20 lg:pb-28 overflow-hidden bg-gradient-to-br from-navy-50 via-white to-navy-50">
     {/* Background Pattern */}
     <div className="absolute inset-0 pattern-dots opacity-50" />
 
@@ -299,7 +299,7 @@ const Hero = () => (
         transition={{ duration: 0.8, delay: 0.3 }}
         className="relative hidden lg:block"
       >
-        <div className="relative pb-4 pl-4">
+        <div className="flex flex-col gap-6">
           {/* Main Card */}
           <div className="bg-white rounded-3xl p-8 shadow-elevated border border-navy-100">
             <img
@@ -327,14 +327,14 @@ const Hero = () => (
             </div>
           </div>
 
-          {/* Floating Badge - positioned to avoid overlap */}
+          {/* Certificate Badge - positioned in document flow to prevent overlap */}
           <motion.div
-            className="absolute -bottom-2 left-0 bg-gold-500 text-navy-900 px-6 py-4 rounded-2xl shadow-lg border border-gold-400/20 z-10"
+            className="relative self-start bg-gold-500 text-navy-900 px-6 py-4 rounded-2xl shadow-lg border border-gold-400/20"
             animate={{ y: [0, -6, 0] }}
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
           >
             <p className="font-display font-bold text-lg">Certyfikat MF</p>
-            <p className="text-sm opacity-80">Licencjonowane biuro</p>
+            <p className="text-sm text-navy-900/80">Licencjonowane biuro</p>
           </motion.div>
         </div>
       </motion.div>
