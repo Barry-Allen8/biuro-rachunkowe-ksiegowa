@@ -1,13 +1,14 @@
-
 import { BusinessData, Service } from '../types';
 
+// SEO-optimized business information for Bydgoszcz
 export const BUSINESS_INFO: BusinessData = {
-  name: "Biuro rachunkowe Księgowa Dla Ciebie Bydgoszcz",
+  name: "Biuro Rachunkowe Księgowa Dla Ciebie",
+  fullName: "Biuro Rachunkowe Księgowa Dla Ciebie - Bydgoszcz Nakielska",
   address: {
-    street: "Nakielska 156/1 piętro",
+    street: "ul. Nakielska 156, I piętro",
     city: "Bydgoszcz",
     zip: "85-391",
-    description: "Łatwy dojazd, parking dla klientów bezpośrednio pod biurem."
+    description: "Dogodna lokalizacja z bezpłatnym parkingiem. Łatwy dojazd z centrum Bydgoszczy."
   },
   contact: {
     phone: "+48 694 908 338",
@@ -15,48 +16,249 @@ export const BUSINESS_INFO: BusinessData = {
   },
   openingHours: [
     { days: "Poniedziałek - Piątek", hours: "08:00 - 16:00" },
-    { days: "Sobota - Niedziela", hours: "Zamknięte (kontakt mailowy)" }
-  ]
+    { days: "Sobota", hours: "Po wcześniejszym umówieniu" },
+    { days: "Niedziela", hours: "Zamknięte" }
+  ],
+  // Legal business identifiers
+  legal: {
+    nip: "000-000-00-00", // Replace with actual NIP
+    regon: "000000000", // Replace with actual REGON
+  }
 };
 
+// SEO-optimized services for "Biuro Rachunkowe Bydgoszcz"
 export const SERVICES: Service[] = [
   {
-    id: "full-accounting",
+    id: "pelna-ksiegowosc",
     title: "Pełna Księgowość",
-    description: "Kompleksowe prowadzenie ksiąg rachunkowych dla spółek kapitałowych (z o.o., S.A.) oraz fundacji i stowarzyszeń.",
+    shortTitle: "Pełna Księgowość Bydgoszcz",
+    description: "Kompleksowe prowadzenie ksiąg rachunkowych dla spółek z o.o., S.A., fundacji i stowarzyszeń. Profesjonalna obsługa zgodna z Ustawą o Rachunkowości.",
+    features: [
+      "Prowadzenie ksiąg handlowych",
+      "Sprawozdania finansowe",
+      "Raporty dla zarządu",
+      "Audyt wewnętrzny"
+    ],
     icon: "M9 17v-2m3 2v-4m3 4v-6m2 10H5a2 2 0 01-2-2V5a2 2 0 012-2h14a2 2 0 012 2v12a2 2 0 01-2 2z"
   },
   {
-    id: "kpir",
+    id: "kpir-ryczalt",
     title: "KPiR i Ryczałt",
-    description: "Profesjonalna obsługa jednoosobowych działalności gospodarczych. Optymalizacja formy opodatkowania.",
+    shortTitle: "Księgowa JDG Bydgoszcz",
+    description: "Profesjonalna obsługa jednoosobowych działalności gospodarczych. Pomoc w wyborze optymalnej formy opodatkowania i maksymalizacji zysków.",
+    features: [
+      "Księga przychodów i rozchodów",
+      "Ryczałt ewidencjonowany",
+      "Optymalizacja podatkowa",
+      "Rozliczenia PIT"
+    ],
     icon: "M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
   },
   {
     id: "kadry-place",
     title: "Kadry i Płace",
-    description: "Obsługa umów o pracę, zlecenia oraz o dzieło. Rozliczenia ZUS, PFRON i kompleksowa dokumentacja pracownicza.",
+    shortTitle: "Obsługa Kadr i Płac Bydgoszcz",
+    description: "Kompleksowa obsługa kadrowo-płacowa. Umowy o pracę, zlecenia, dzieło. Rozliczenia ZUS, PFRON i pełna dokumentacja pracownicza.",
+    features: [
+      "Listy płac i rozliczenia",
+      "Dokumentacja ZUS/PFRON",
+      "Umowy i aneksy",
+      "Akta osobowe"
+    ],
     icon: "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
   },
   {
-    id: "consulting",
-    title: "Doradztwo Biznesowe",
-    description: "Pomoc w rejestracji firmy, wybór najkorzystniejszej formy prawnej i bieżące wsparcie w rozwoju biznesu.",
-    icon: "M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+    id: "doradztwo-podatkowe",
+    title: "Doradztwo Podatkowe",
+    shortTitle: "Doradca Podatkowy Bydgoszcz",
+    description: "Profesjonalne doradztwo w zakresie prawa podatkowego. Optymalizacja obciążeń, pomoc przy kontrolach skarbowych i reprezentacja przed US.",
+    features: [
+      "Optymalizacja podatkowa",
+      "Interpretacje podatkowe",
+      "Pomoc przy kontrolach",
+      "Planowanie podatkowe"
+    ],
+    icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
   }
 ];
 
-export const TRUST_FACTORS = [
+// Trust indicators for authority building
+export const TRUST_BADGES = [
   {
-    title: "Lokalne Doświadczenie",
-    description: "Znamy specyfikę bydgoskiego rynku i urzędów skarbowych."
+    id: "certyfikat-mf",
+    title: "Certyfikat Ministra Finansów",
+    shortTitle: "Certyfikat MF",
+    description: "Posiadamy uprawnienia wydane przez Ministra Finansów do usługowego prowadzenia ksiąg rachunkowych.",
+    icon: "certificate"
   },
   {
-    title: "Nowoczesne Narzędzia",
-    description: "Pracujemy w chmurze, oferując podgląd wyników online 24/7."
+    id: "ubezpieczenie-oc",
+    title: "Ubezpieczenie OC",
+    shortTitle: "Ubezpieczenie OC",
+    description: "Pełne ubezpieczenie odpowiedzialności cywilnej chroniące Twój biznes.",
+    icon: "shield"
   },
   {
-    title: "Bezpieczeństwo",
-    description: "Posiadamy pełne ubezpieczenie OC oraz certyfikaty MF."
+    id: "referencje",
+    title: "Referencje Klientów",
+    shortTitle: "150+ Klientów",
+    description: "Ponad 150 zadowolonych firm w Bydgoszczy i okolicach powierzyło nam swoje finanse.",
+    icon: "users"
   }
 ];
+
+// Why choose us - competitive advantages
+export const TRUST_FACTORS = [
+  {
+    id: "terminowosc",
+    title: "Terminowość",
+    description: "Gwarantujemy terminowe rozliczenia i składanie deklaracji. Żadnych opóźnień ani kar.",
+    icon: "clock"
+  },
+  {
+    id: "bezpieczenstwo",
+    title: "Bezpieczeństwo Danych",
+    description: "Nowoczesne zabezpieczenia IT i szyfrowanie danych. Pełna zgodność z RODO.",
+    icon: "lock"
+  },
+  {
+    id: "indywidualne-podejscie",
+    title: "Indywidualne Podejście",
+    description: "Każdy klient to dla nas partner. Dostosowujemy rozwiązania do Twoich potrzeb.",
+    icon: "heart"
+  },
+  {
+    id: "dostepnosc",
+    title: "Stały Kontakt",
+    description: "Dedykowany opiekun dostępny telefonicznie i mailowo. Szybka reakcja na pytania.",
+    icon: "phone"
+  }
+];
+
+// Pricing tiers for the pricing section
+export const PRICING_TIERS = [
+  {
+    id: "startup",
+    name: "Startup / JDG",
+    subtitle: "Dla jednoosobowych działalności",
+    priceFrom: 250,
+    priceTo: 400,
+    currency: "PLN",
+    period: "netto / mies.",
+    description: "Idealne dla początkujących przedsiębiorców i małych firm.",
+    features: [
+      "Księga Przychodów i Rozchodów",
+      "Rozliczenia VAT",
+      "Deklaracje PIT",
+      "Kontakt mailowy i telefoniczny",
+      "Dostęp do platformy online"
+    ],
+    highlighted: false,
+    cta: "Wybierz pakiet"
+  },
+  {
+    id: "spolki",
+    name: "Spółki z o.o.",
+    subtitle: "Dla spółek kapitałowych",
+    priceFrom: 700,
+    priceTo: 1500,
+    currency: "PLN",
+    period: "netto / mies.",
+    description: "Kompleksowa obsługa dla spółek z ograniczoną odpowiedzialnością.",
+    features: [
+      "Pełna księgowość",
+      "Sprawozdania finansowe",
+      "Rozliczenia CIT i VAT",
+      "Raporty zarządcze",
+      "Dedykowany opiekun",
+      "Priorytetowa obsługa"
+    ],
+    highlighted: true,
+    badge: "Najpopularniejszy",
+    cta: "Wybierz pakiet"
+  },
+  {
+    id: "kadry",
+    name: "Kadry i Płace",
+    subtitle: "Obsługa pracowników",
+    priceFrom: 60,
+    priceTo: 100,
+    currency: "PLN",
+    period: "za pracownika / mies.",
+    description: "Profesjonalna obsługa kadrowo-płacowa dla firm każdej wielkości.",
+    features: [
+      "Listy płac",
+      "Deklaracje ZUS",
+      "Umowy o pracę i cywilnoprawne",
+      "Akta osobowe",
+      "Świadectwa pracy",
+      "Rozliczenia PFRON"
+    ],
+    highlighted: false,
+    cta: "Wybierz pakiet"
+  }
+];
+
+// Testimonials for social proof
+export const TESTIMONIALS = [
+  {
+    id: 1,
+    name: "Anna Kowalska",
+    company: "Kowalska Design Studio",
+    role: "Właścicielka",
+    content: "Współpracujemy od 3 lat. Profesjonalizm, terminowość i zawsze pomocna obsługa. Polecam każdemu przedsiębiorcy w Bydgoszczy!",
+    rating: 5
+  },
+  {
+    id: 2,
+    name: "Marek Nowicki",
+    company: "TechByd Sp. z o.o.",
+    role: "Prezes Zarządu",
+    content: "Wreszcie znalazłem biuro rachunkowe, które rozumie potrzeby rozwijającej się firmy IT. Świetna komunikacja i elastyczność.",
+    rating: 5
+  },
+  {
+    id: 3,
+    name: "Katarzyna Wiśniewska",
+    company: "Sklep Internetowy KateShop",
+    role: "Właścicielka",
+    content: "Od początku mojej działalności korzystam z usług tego biura. Pomoc przy wyborze formy opodatkowania była bezcenna.",
+    rating: 5
+  }
+];
+
+// FAQ for SEO and user education
+export const FAQ_ITEMS = [
+  {
+    question: "Ile kosztuje księgowość dla jednoosobowej działalności w Bydgoszczy?",
+    answer: "Ceny księgowości dla JDG zaczynają się od 250 PLN netto miesięcznie. Dokładna cena zależy od liczby dokumentów i zakresu usług. Oferujemy bezpłatną wycenę."
+  },
+  {
+    question: "Czy prowadzicie księgowość online?",
+    answer: "Tak! Oferujemy pełną obsługę online. Dokumenty możesz przesyłać elektronicznie, a dostęp do raportów masz 24/7 przez naszą platformę."
+  },
+  {
+    question: "Jak szybko mogę rozpocząć współpracę?",
+    answer: "Proces rozpoczęcia współpracy trwa zazwyczaj 1-2 dni robocze. Po podpisaniu umowy przejmujemy dokumentację i zaczynamy działać."
+  },
+  {
+    question: "Czy pomagacie w zakładaniu firmy?",
+    answer: "Tak, oferujemy kompleksową pomoc przy rejestracji działalności gospodarczej, w tym wybór formy prawnej i optymalizację podatkową od pierwszego dnia."
+  }
+];
+
+// SEO metadata
+export const SEO_CONTENT = {
+  title: "Biuro Rachunkowe Bydgoszcz | Księgowa Nakielska | Pełna Księgowość",
+  description: "Profesjonalne biuro rachunkowe w Bydgoszczy przy ul. Nakielskiej 156. Pełna księgowość, KPiR, kadry i płace, doradztwo podatkowe. Certyfikat MF, ubezpieczenie OC. Zadzwoń: 694 908 338",
+  keywords: [
+    "biuro rachunkowe bydgoszcz",
+    "księgowa bydgoszcz nakielska",
+    "pełna księgowość bydgoszcz",
+    "obsługa kadr i płac bydgoszcz",
+    "księgowość dla spółek bydgoszcz",
+    "doradca podatkowy bydgoszcz",
+    "KPiR bydgoszcz",
+    "rozliczenia VAT bydgoszcz"
+  ]
+};

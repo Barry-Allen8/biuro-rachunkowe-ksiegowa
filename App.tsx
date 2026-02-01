@@ -1,13 +1,98 @@
-
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { SERVICES, BUSINESS_INFO, TRUST_FACTORS } from './data/content';
-// Calculator Imported Lazy below
+import { SERVICES, BUSINESS_INFO, TRUST_FACTORS, TRUST_BADGES, PRICING_TIERS, TESTIMONIALS } from './data/content';
 import { Button } from './components/ui/Button';
 import { CookieConsent } from './components/CookieConsent';
 
+// SVG Icons Component
+const Icons = {
+  certificate: (
+    <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+    </svg>
+  ),
+  shield: (
+    <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+    </svg>
+  ),
+  users: (
+    <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+    </svg>
+  ),
+  clock: (
+    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
+  ),
+  lock: (
+    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+    </svg>
+  ),
+  heart: (
+    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+    </svg>
+  ),
+  phone: (
+    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+    </svg>
+  ),
+  check: (
+    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+    </svg>
+  ),
+  star: (
+    <svg className="w-5 h-5 fill-gold-400 text-gold-400" viewBox="0 0 24 24">
+      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+    </svg>
+  ),
+  mapPin: (
+    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+    </svg>
+  ),
+  mail: (
+    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+    </svg>
+  ),
+  menu: (
+    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+    </svg>
+  ),
+  close: (
+    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+    </svg>
+  ),
+};
+
+const getIcon = (iconName: string) => {
+  return Icons[iconName as keyof typeof Icons] || Icons.check;
+};
+
+// Smooth scroll helper
+const scrollToSection = (sectionId: string) => {
+  const element = document.getElementById(sectionId);
+  if (element) {
+    const headerOffset = 100;
+    const elementPosition = element.getBoundingClientRect().top;
+    const offsetPosition = elementPosition + window.scrollY - headerOffset;
+    window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+  }
+};
+
+// Header Component
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
@@ -15,180 +100,257 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Smooth scroll for anchor navigation
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
     e.preventDefault();
-    const targetId = e.currentTarget.getAttribute('href')?.substring(1);
-    if (!targetId) return;
-
-    const targetElement = document.getElementById(targetId);
-    if (!targetElement) return;
-
-    // Calculate header offset (account for both py-8 and py-4 states + some breathing room)
-    const headerOffset = 100;
-    const elementPosition = targetElement.getBoundingClientRect().top;
-    const offsetPosition = elementPosition + window.scrollY - headerOffset;
-
-    window.scrollTo({
-      top: offsetPosition,
-      behavior: 'smooth'
-    });
+    scrollToSection(sectionId);
+    setIsMobileMenuOpen(false);
   };
 
-  // Make logo intentionally interactive - scroll to top on click
-  const handleLogoClick = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+  const navLinks = [
+    { href: 'services', label: 'Usługi' },
+    { href: 'about', label: 'O nas' },
+    { href: 'pricing', label: 'Cennik' },
+    { href: 'contact', label: 'Kontakt' },
+  ];
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled ? 'glass py-4' : 'bg-transparent py-8'}`}>
-      <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-        <button
-          onClick={handleLogoClick}
-          className="flex items-center gap-2 cursor-pointer group transition-all duration-300 hover:opacity-75"
-          aria-label="Scroll to top"
-        >
-          <div className="w-10 h-10 bg-[#004D40] rounded-lg flex items-center justify-center">
-            <span className="text-white font-bold text-xl">K</span>
-          </div>
-          <span className="font-display font-bold text-xl hidden sm:block">Księgowa Dla Ciebie</span>
-        </button>
+    <>
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled ? 'glass py-3' : 'bg-transparent py-5'}`}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 flex justify-between items-center">
+          {/* Logo */}
+          <button
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            className="flex items-center gap-3 group"
+            aria-label="Scroll to top"
+          >
+            <div className="w-11 h-11 bg-navy-900 rounded-xl flex items-center justify-center shadow-depth-sm group-hover:shadow-depth-md transition-all duration-300">
+              <span className="text-white font-display font-bold text-xl">K</span>
+            </div>
+            <div className="hidden sm:block">
+              <span className="font-display font-bold text-lg text-navy-900 block leading-tight">Księgowa</span>
+              <span className="text-xs text-navy-500 font-medium">Dla Ciebie</span>
+            </div>
+          </button>
 
-        <div className="hidden md:flex items-center gap-10 font-medium text-sm">
-          <a href="#services" onClick={handleNavClick} className="hover:text-[#004D40] transition-colors">Usługi</a>
-          <a href="#about" onClick={handleNavClick} className="hover:text-[#004D40] transition-colors">O biurze</a>
-          <a href="#calculator" onClick={handleNavClick} className="hover:text-[#004D40] transition-colors">Cennik</a>
-          <a href="#contact" onClick={handleNavClick} className="hover:text-[#004D40] transition-colors">Kontakt</a>
+          {/* Desktop Navigation */}
+          <div className="hidden lg:flex items-center gap-8">
+            {navLinks.map((link) => (
+              <a
+                key={link.href}
+                href={`#${link.href}`}
+                onClick={(e) => handleNavClick(e, link.href)}
+                className="text-navy-700 hover:text-navy-900 font-medium text-sm transition-colors relative group"
+              >
+                {link.label}
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gold-500 group-hover:w-full transition-all duration-300" />
+              </a>
+            ))}
+          </div>
+
+          {/* CTA Buttons */}
+          <div className="flex items-center gap-3">
+            <Button
+              variant="gold"
+              size="sm"
+              className="hidden sm:flex"
+              onClick={() => window.location.href = `tel:${BUSINESS_INFO.contact.phone}`}
+            >
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+              </svg>
+              Zadzwoń teraz
+            </Button>
+
+            {/* Mobile menu button */}
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="lg:hidden p-2 text-navy-900"
+              aria-label="Toggle menu"
+            >
+              {isMobileMenuOpen ? Icons.close : Icons.menu}
+            </button>
+          </div>
         </div>
 
-        <Button variant="secondary" className="hidden sm:flex !py-2.5 !px-6 !text-sm" onClick={() => window.location.href = 'tel:+48694908338'}>
-          Zadzwoń teraz
-        </Button>
-      </div>
-    </nav>
+        {/* Mobile Menu */}
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              className="lg:hidden bg-white border-t border-navy-100"
+            >
+              <div className="max-w-7xl mx-auto px-4 py-4 space-y-2">
+                {navLinks.map((link) => (
+                  <a
+                    key={link.href}
+                    href={`#${link.href}`}
+                    onClick={(e) => handleNavClick(e, link.href)}
+                    className="block py-3 px-4 text-navy-700 hover:bg-navy-50 rounded-lg font-medium transition-colors"
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </nav>
+    </>
   );
 };
 
+// Hero Section
 const Hero = () => (
-  <header className="relative min-h-screen flex items-center pt-20 overflow-hidden bg-white">
-    <div className="max-w-7xl mx-auto px-6 w-full grid lg:grid-cols-2 gap-12 items-center z-10">
+  <header className="relative min-h-screen flex items-center pt-20 overflow-hidden bg-gradient-to-br from-navy-50 via-white to-navy-50">
+    {/* Background Pattern */}
+    <div className="absolute inset-0 pattern-dots opacity-50" />
+
+    {/* Decorative Elements */}
+    <div className="absolute top-1/4 right-0 w-96 h-96 bg-gold-400/10 rounded-full blur-3xl" />
+    <div className="absolute bottom-0 left-0 w-64 h-64 bg-navy-900/5 rounded-full blur-3xl" />
+
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 w-full grid lg:grid-cols-2 gap-12 lg:gap-16 items-center relative z-10 py-12 lg:py-0">
       <div className="max-w-2xl">
         <motion.div
           initial="hidden"
           animate="visible"
           variants={{
             hidden: { opacity: 0 },
-            visible: {
-              opacity: 1,
-              transition: { staggerChildren: 0.1, delayChildren: 0.1 }
-            }
+            visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.1 } }
           }}
         >
-          <motion.div variants={{ hidden: { y: 10, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } } }}>
-            <span className="inline-block px-4 py-1.5 bg-[#F5F5F7] text-gray-500 rounded-full text-xs font-medium tracking-widest uppercase mb-8 opacity-70">
-              Bydgoszcz • Nakielska 156
+          {/* Location Badge */}
+          <motion.div variants={{ hidden: { y: 10, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { duration: 0.6 } } }}>
+            <span className="inline-flex items-center gap-2 px-4 py-2 bg-white text-navy-600 rounded-full text-sm font-medium shadow-depth-sm border border-navy-100 mb-8">
+              {Icons.mapPin}
+              <span>Bydgoszcz, ul. Nakielska 156</span>
             </span>
           </motion.div>
 
-          <h1 className="text-6xl lg:text-8xl font-display font-medium leading-[1.05] mb-8 tracking-tight text-[#1D1D1F]">
-            <motion.span className="block" variants={{ hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { duration: 1, ease: [0.16, 1, 0.3, 1] } } }}>
-              Księgowość,
+          {/* SEO-Optimized H1 */}
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-display font-bold leading-[1.1] mb-6 tracking-tight">
+            <motion.span className="block text-navy-900" variants={{ hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { duration: 0.8 } } }}>
+              Biuro Rachunkowe
             </motion.span>
-            <motion.span className="block" variants={{ hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { duration: 1, ease: [0.16, 1, 0.3, 1] } } }}>
-              która pracuje
+            <motion.span className="block text-navy-900" variants={{ hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { duration: 0.8 } } }}>
+              w Bydgoszczy
             </motion.span>
-            <motion.span className="block text-[#004D40]" variants={{ hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { duration: 1, ease: [0.16, 1, 0.3, 1] } } }}>
-              dla Ciebie
+            <motion.span className="block text-gradient-gold" variants={{ hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { duration: 0.8 } } }}>
+              Dla Twojego Biznesu
             </motion.span>
           </h1>
 
           <motion.p
-            variants={{ hidden: { opacity: 0 }, visible: { opacity: 1, transition: { duration: 1, delay: 0.4 } } }}
-            className="text-xl text-gray-400 mb-12 leading-relaxed max-w-lg"
+            variants={{ hidden: { opacity: 0 }, visible: { opacity: 1, transition: { duration: 0.8, delay: 0.3 } } }}
+            className="text-lg sm:text-xl text-navy-600 mb-8 leading-relaxed max-w-lg"
           >
-            Nowoczesne podejście do finansów Twojej firmy. JDG, Spółki, Kadry i Płace w sercu Bydgoszczy.
+            Profesjonalna <strong>pełna księgowość</strong>, <strong>obsługa kadr i płac</strong> oraz doradztwo podatkowe. Certyfikat MF, ubezpieczenie OC. Zaufało nam ponad 150 firm.
           </motion.p>
 
+          {/* CTA Buttons */}
           <motion.div
             className="flex flex-col sm:flex-row gap-4"
-            variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8, delay: 0.6 } } }}
+            variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6, delay: 0.5 } } }}
           >
-            <Button variant="primary" onClick={() => {
-              const target = document.getElementById('calculator');
-              if (target) {
-                const headerOffset = 100;
-                const elementPosition = target.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.scrollY - headerOffset;
-                window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
-              }
-            }}>
-              Oblicz koszt
+            <Button variant="gold" size="lg" onClick={() => scrollToSection('contact')}>
+              Darmowa Wycena
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
             </Button>
-            <Button variant="secondary" onClick={() => {
-              const target = document.getElementById('contact');
-              if (target) {
-                const headerOffset = 100;
-                const elementPosition = target.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.scrollY - headerOffset;
-                window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
-              }
-            }}>
-              Darmowa konsultacja
+            <Button variant="outline" size="lg" onClick={() => scrollToSection('services')}>
+              Zobacz usługi
             </Button>
+          </motion.div>
+
+          {/* Trust Indicators */}
+          <motion.div
+            className="flex flex-wrap gap-6 mt-10 pt-10 border-t border-navy-100"
+            variants={{ hidden: { opacity: 0 }, visible: { opacity: 1, transition: { duration: 0.8, delay: 0.7 } } }}
+          >
+            {TRUST_BADGES.map((badge) => (
+              <div key={badge.id} className="flex items-center gap-2 text-navy-600">
+                <div className="w-10 h-10 bg-navy-900 rounded-lg flex items-center justify-center text-white">
+                  {getIcon(badge.icon)}
+                </div>
+                <span className="text-sm font-medium">{badge.shortTitle}</span>
+              </div>
+            ))}
           </motion.div>
         </motion.div>
       </div>
 
+      {/* Hero Image/Card */}
       <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1, delay: 0.2 }}
+        initial={{ opacity: 0, x: 50 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.8, delay: 0.3 }}
         className="relative hidden lg:block"
       >
-        <div className="relative z-10 bg-white rounded-3xl elevated overflow-hidden border border-gray-100">
-          <img src="/hero-workspace.png" alt="Professional Office Workspace" className="w-full h-auto grayscale hover:grayscale-0 transition-all duration-1000" />
-          <div className="absolute bottom-8 left-8 right-8 bg-white/90 backdrop-blur p-6 rounded-2xl shadow-lg border border-white">
-            <div className="flex items-center gap-4">
-              {/* Decorative avatars removed - reduces stock photo feel */}
-              <div>
-                <p className="text-sm font-bold">150+ Zadowolonych firm</p>
-                <p className="text-xs text-gray-500">Wspieramy lokalny biznes od lat.</p>
+        <div className="relative">
+          {/* Main Card */}
+          <div className="bg-white rounded-3xl p-8 shadow-elevated border border-navy-100">
+            <img
+              src="/hero-workspace.png"
+              alt="Profesjonalne biuro rachunkowe w Bydgoszczy"
+              className="w-full h-auto rounded-2xl"
+            />
+
+            {/* Stats Overlay */}
+            <div className="mt-6 grid grid-cols-3 gap-4">
+              <div className="text-center p-4 bg-navy-50 rounded-xl">
+                <p className="text-2xl font-display font-bold text-navy-900">150+</p>
+                <p className="text-xs text-navy-500 font-medium">Klientów</p>
+              </div>
+              <div className="text-center p-4 bg-navy-50 rounded-xl">
+                <p className="text-2xl font-display font-bold text-navy-900">15+</p>
+                <p className="text-xs text-navy-500 font-medium">Lat doświadczenia</p>
+              </div>
+              <div className="text-center p-4 bg-navy-50 rounded-xl">
+                <p className="text-2xl font-display font-bold text-navy-900">100%</p>
+                <p className="text-xs text-navy-500 font-medium">Satysfakcji</p>
               </div>
             </div>
           </div>
+
+          {/* Floating Badge */}
+          <motion.div
+            className="absolute -bottom-6 -left-6 bg-gold-500 text-navy-900 px-6 py-4 rounded-2xl shadow-gold"
+            animate={{ y: [0, -8, 0] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <p className="font-display font-bold text-lg">Certyfikat MF</p>
+            <p className="text-sm opacity-80">Licencjonowane biuro</p>
+          </motion.div>
         </div>
-        {/* Subtle depth accent - reduced decoration */}
-        <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-[#004D40]/5 rounded-full blur-[120px]"></div>
       </motion.div>
     </div>
   </header>
 );
 
-const Services = () => (
-  <section id="services" className="py-32 bg-[#F9F9FB]">
-    <div className="max-w-7xl mx-auto px-6">
-      <div className="text-center mb-24">
-        <h2 className="text-4xl lg:text-5xl font-medium mb-6 tracking-tight text-[#1D1D1F]">Kompleksowa obsługa</h2>
-        <p className="text-gray-500 max-w-2xl mx-auto text-lg leading-relaxed">Wszystko, czego potrzebuje Twój biznes w jednym miejscu. Od rejestracji po optymalizację podatkową.</p>
-      </div>
-
-      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-        {SERVICES.map((s, idx) => (
+// Trust Badges Section
+const TrustBadgesSection = () => (
+  <section className="py-16 bg-white border-y border-navy-100">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6">
+      <div className="grid md:grid-cols-3 gap-8">
+        {TRUST_BADGES.map((badge, idx) => (
           <motion.div
-            key={s.id}
+            key={badge.id}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ delay: idx * 0.1, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="group bg-white p-10 rounded-[2rem] depth-md hover:depth-lg border border-gray-50 transition-all duration-500"
+            viewport={{ once: true }}
+            transition={{ delay: idx * 0.1, duration: 0.5 }}
+            className="flex items-start gap-4 p-6 bg-navy-50 rounded-2xl hover:bg-navy-100 transition-colors duration-300"
           >
-            <div className="w-14 h-14 bg-[#F5F5F7] text-[#1D1D1F] rounded-2xl flex items-center justify-center mb-8 group-hover:bg-[#004D40] group-hover:text-white transition-colors duration-500">
-              <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={s.icon} />
-              </svg>
+            <div className="flex-shrink-0 w-14 h-14 bg-navy-900 rounded-xl flex items-center justify-center text-gold-400">
+              {getIcon(badge.icon)}
             </div>
-            <h3 className="text-xl font-bold mb-4 text-[#1D1D1F]">{s.title}</h3>
-            <p className="text-gray-500 leading-relaxed text-sm">{s.description}</p>
+            <div>
+              <h3 className="font-display font-bold text-navy-900 mb-1">{badge.title}</h3>
+              <p className="text-sm text-navy-600">{badge.description}</p>
+            </div>
           </motion.div>
         ))}
       </div>
@@ -196,157 +358,661 @@ const Services = () => (
   </section>
 );
 
-// Lazy load heavy interactive components
-const Calculator = React.lazy(() => import('./components/Calculator').then(module => ({ default: module.Calculator })));
-
-const WhyChooseUs = () => (
-  <section id="about" className="py-32 bg-white overflow-hidden">
-    <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-20 items-center">
-      <div>
-        <h2 className="text-4xl lg:text-5xl font-medium mb-8 tracking-tight text-[#1D1D1F]">Dlaczego my?</h2>
-        <p className="text-xl text-gray-500 mb-12 leading-relaxed">Wierzymy, że księgowość to nie tylko cyfry, to fundament Twojego spokoju. Nasze biuro w Bydgoszczy łączy tradycyjną rzetelność z cyfrową wygodą.</p>
-
-        <div className="space-y-8">
-          {TRUST_FACTORS.map((f, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1, duration: 0.6 }}
-              className="flex gap-6 group"
-            >
-              <div className="flex-shrink-0 w-12 h-12 bg-[#F5F5F7] rounded-full flex items-center justify-center text-[#1D1D1F] group-hover:bg-[#004D40] group-hover:text-white transition-colors duration-500">
-                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
-              </div>
-              <div>
-                <h4 className="font-bold text-lg mb-1 text-[#1D1D1F]">{f.title}</h4>
-                <p className="text-gray-500">{f.description}</p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+// Services Section
+const Services = () => (
+  <section id="services" className="py-24 lg:py-32 bg-white">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6">
+      <div className="text-center mb-16">
+        <motion.span
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="inline-block px-4 py-2 bg-gold-100 text-gold-700 rounded-full text-sm font-semibold mb-4"
+        >
+          Nasze Usługi
+        </motion.span>
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold text-navy-900 mb-6"
+        >
+          Kompleksowa Obsługa Księgowa
+          <br />
+          <span className="text-gold-500">w Bydgoszczy</span>
+        </motion.h2>
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="text-navy-600 max-w-2xl mx-auto text-lg"
+        >
+          Od jednoosobowych działalności po duże spółki. Wszystko, czego potrzebuje Twój biznes w jednym miejscu.
+        </motion.p>
       </div>
 
-      <div className="relative">
-        <div className="aspect-square bg-[#1D1D1F] rounded-[3rem] p-12 flex flex-col justify-end text-white overflow-hidden group elevated relative isolate transform-gpu">
-          <img
-            src="/office-background.png"
-            loading="lazy"
-            className="absolute inset-0 w-full h-full object-cover opacity-60 transition-opacity duration-1000 group-hover:opacity-70"
-          />
-          {/* Ensure inner content respects card radius - no border-radius on overlay */}
-          <div className="absolute inset-0 ring-1 ring-white/10 pointer-events-none z-20"></div>
-          <div className="relative z-10 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-700">
-            <p className="text-3xl lg:text-4xl font-medium mb-6 leading-tight">"Twoje finanse,<br />nasza pasja."</p>
-            <p className="text-white/80 font-medium tracking-widest uppercase text-xs">Zofia Kowalska, Właścicielka</p>
-          </div>
-        </div>
+      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+        {SERVICES.map((service, idx) => (
+          <motion.div
+            key={service.id}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ delay: idx * 0.1, duration: 0.5 }}
+            className="group bg-white p-8 rounded-2xl border border-navy-100 hover:border-navy-200 hover:shadow-card-hover transition-all duration-500"
+          >
+            <div className="w-14 h-14 bg-navy-50 text-navy-900 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-navy-900 group-hover:text-white transition-all duration-500">
+              <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={service.icon} />
+              </svg>
+            </div>
+            <h3 className="text-xl font-display font-bold text-navy-900 mb-3">{service.title}</h3>
+            <p className="text-navy-500 text-sm leading-relaxed mb-4">{service.description}</p>
+
+            {service.features && (
+              <ul className="space-y-2">
+                {service.features.slice(0, 3).map((feature, i) => (
+                  <li key={i} className="flex items-center gap-2 text-sm text-navy-600">
+                    <span className="w-1.5 h-1.5 bg-gold-500 rounded-full" />
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </motion.div>
+        ))}
       </div>
     </div>
   </section>
 );
 
-const Contact = () => (
-  <section id="contact" className="py-32 bg-white">
-    <div className="max-w-7xl mx-auto px-6">
-      <div className="bg-[#1D1D1F] rounded-[3rem] p-8 lg:p-16 text-white grid lg:grid-cols-2 gap-16 relative overflow-hidden">
-        <div className="relative z-10">
-          <h2 className="text-4xl lg:text-5xl font-bold mb-8">Odwiedź nas w Bydgoszczy</h2>
+// Why Choose Us Section
+const WhyChooseUs = () => (
+  <section id="about" className="py-24 lg:py-32 bg-navy-900 text-white overflow-hidden relative">
+    {/* Background Pattern */}
+    <div className="absolute inset-0 opacity-10">
+      <div className="absolute top-0 right-0 w-96 h-96 bg-gold-400 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 left-0 w-64 h-64 bg-white rounded-full blur-3xl" />
+    </div>
 
-          <div className="space-y-10">
-            <div>
-              <p className="text-gray-400 text-sm uppercase tracking-widest mb-3 font-bold">Adres</p>
-              <p className="text-2xl font-medium leading-tight">
-                {BUSINESS_INFO.address.street}<br />
-                {BUSINESS_INFO.address.zip} {BUSINESS_INFO.address.city}
-              </p>
-              <p className="text-gray-500 mt-2">{BUSINESS_INFO.address.description}</p>
-            </div>
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+      <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div>
+          <motion.span
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="inline-block px-4 py-2 bg-white/10 text-gold-400 rounded-full text-sm font-semibold mb-6"
+          >
+            Dlaczego My?
+          </motion.span>
 
-            <div>
-              <p className="text-gray-400 text-sm uppercase tracking-widest mb-3 font-bold">Kontakt</p>
-              <a href={`tel:${BUSINESS_INFO.contact.phone}`} className="text-2xl font-medium block hover:text-[#004D40] transition-colors">{BUSINESS_INFO.contact.phone}</a>
-              <a href={`mailto:${BUSINESS_INFO.contact.email}`} className="text-lg text-gray-400 block mt-1">{BUSINESS_INFO.contact.email}</a>
-            </div>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold mb-6"
+          >
+            Księgowa Bydgoszcz
+            <br />
+            <span className="text-gold-400">ul. Nakielska 156</span>
+          </motion.h2>
 
-            <div>
-              <p className="text-gray-400 text-sm uppercase tracking-widest mb-3 font-bold">Godziny Otwarcia</p>
-              {BUSINESS_INFO.openingHours.map((h, i) => (
-                <p key={i} className="text-lg">
-                  <span className="text-gray-400">{h.days}:</span> {h.hours}
-                </p>
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="text-navy-200 text-lg mb-10 leading-relaxed"
+          >
+            Wierzymy, że księgowość to nie tylko cyfry — to fundament Twojego spokoju. Nasze biuro rachunkowe łączy wieloletnie doświadczenie z nowoczesnymi rozwiązaniami.
+          </motion.p>
+
+          <div className="grid sm:grid-cols-2 gap-6">
+            {TRUST_FACTORS.map((factor, i) => (
+              <motion.div
+                key={factor.id}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1, duration: 0.5 }}
+                className="flex gap-4 group"
+              >
+                <div className="flex-shrink-0 w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center text-gold-400 group-hover:bg-gold-400 group-hover:text-navy-900 transition-all duration-300">
+                  {getIcon(factor.icon)}
+                </div>
+                <div>
+                  <h4 className="font-display font-bold text-white mb-1">{factor.title}</h4>
+                  <p className="text-navy-300 text-sm">{factor.description}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
+        {/* Testimonial Card */}
+        <motion.div
+          initial={{ opacity: 0, x: 50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          className="relative"
+        >
+          <div className="bg-white/5 backdrop-blur-sm rounded-3xl p-8 lg:p-10 border border-white/10">
+            <div className="flex gap-1 mb-6">
+              {[...Array(5)].map((_, i) => (
+                <span key={i}>{Icons.star}</span>
               ))}
             </div>
-          </div>
-        </div>
 
-        <div className="rounded-3xl overflow-hidden min-h-[400px] border border-white/5 relative z-10">
-          {/* Fixed: Using standard Google Maps search embed (no API key required) */}
-          <iframe
-            src="https://maps.google.com/maps?q=Nakielska+156/1+piętro,+85-391+Bydgoszcz,+Poland&output=embed"
-            className="w-full h-full grayscale opacity-80 contrast-125"
-            style={{ border: 0 }}
-            allowFullScreen
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-          ></iframe>
-        </div>
+            <blockquote className="text-xl lg:text-2xl font-medium text-white mb-8 leading-relaxed">
+              "{TESTIMONIALS[0].content}"
+            </blockquote>
+
+            <div className="flex items-center gap-4">
+              <div className="w-14 h-14 bg-gold-400 rounded-full flex items-center justify-center text-navy-900 font-display font-bold text-xl">
+                {TESTIMONIALS[0].name.charAt(0)}
+              </div>
+              <div>
+                <p className="font-display font-bold text-white">{TESTIMONIALS[0].name}</p>
+                <p className="text-navy-300 text-sm">{TESTIMONIALS[0].role}, {TESTIMONIALS[0].company}</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Decorative Quote */}
+          <div className="absolute -top-6 -right-6 text-gold-400/20 text-9xl font-serif">"</div>
+        </motion.div>
       </div>
     </div>
   </section>
 );
 
+// Pricing Section
+const Pricing = () => (
+  <section id="pricing" className="py-24 lg:py-32 bg-navy-50">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6">
+      <div className="text-center mb-16">
+        <motion.span
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="inline-block px-4 py-2 bg-navy-900 text-white rounded-full text-sm font-semibold mb-4"
+        >
+          Cennik
+        </motion.span>
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold text-navy-900 mb-6"
+        >
+          Przejrzyste Ceny
+          <br />
+          <span className="text-gold-500">Bez Ukrytych Kosztów</span>
+        </motion.h2>
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="text-navy-600 max-w-2xl mx-auto text-lg"
+        >
+          Wybierz pakiet dopasowany do potrzeb Twojej firmy. Każda wycena jest indywidualna.
+        </motion.p>
+      </div>
+
+      <div className="grid md:grid-cols-3 gap-8">
+        {PRICING_TIERS.map((tier, idx) => (
+          <motion.div
+            key={tier.id}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: idx * 0.1, duration: 0.5 }}
+            className={`relative bg-white rounded-3xl p-8 ${
+              tier.highlighted
+                ? 'ring-2 ring-gold-500 shadow-elevated scale-105'
+                : 'border border-navy-100 shadow-card hover:shadow-card-hover'
+            } transition-all duration-500`}
+          >
+            {tier.badge && (
+              <div className="absolute -top-4 left-1/2 -translate-x-1/2">
+                <span className="bg-gold-500 text-navy-900 px-4 py-1.5 rounded-full text-sm font-bold">
+                  {tier.badge}
+                </span>
+              </div>
+            )}
+
+            <div className="text-center mb-8">
+              <h3 className="text-xl font-display font-bold text-navy-900 mb-2">{tier.name}</h3>
+              <p className="text-navy-500 text-sm">{tier.subtitle}</p>
+            </div>
+
+            <div className="text-center mb-8 pb-8 border-b border-navy-100">
+              <div className="flex items-baseline justify-center gap-1">
+                <span className="text-navy-500 text-lg">od</span>
+                <span className="text-4xl font-display font-bold text-navy-900">{tier.priceFrom}</span>
+                <span className="text-navy-500">{tier.currency}</span>
+              </div>
+              <p className="text-sm text-navy-400 mt-1">{tier.period}</p>
+            </div>
+
+            <ul className="space-y-4 mb-8">
+              {tier.features.map((feature, i) => (
+                <li key={i} className="flex items-start gap-3">
+                  <span className="flex-shrink-0 w-5 h-5 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mt-0.5">
+                    {Icons.check}
+                  </span>
+                  <span className="text-navy-600 text-sm">{feature}</span>
+                </li>
+              ))}
+            </ul>
+
+            <Button
+              variant={tier.highlighted ? 'gold' : 'outline'}
+              className="w-full"
+              onClick={() => scrollToSection('contact')}
+            >
+              {tier.cta}
+            </Button>
+          </motion.div>
+        ))}
+      </div>
+
+      <motion.p
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        className="text-center text-navy-500 mt-12"
+      >
+        * Ceny orientacyjne. Dokładna wycena po analizie dokumentacji.
+        <br />
+        Skontaktuj się z nami, aby otrzymać bezpłatną, spersonalizowaną ofertę.
+      </motion.p>
+    </div>
+  </section>
+);
+
+// Lazy load Calculator
+const Calculator = React.lazy(() => import('./components/Calculator').then(module => ({ default: module.Calculator })));
+
+// Contact Section
+const Contact = () => {
+  const [formState, setFormState] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    message: '',
+    gdpr: false
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    // Simulate form submission
+    await new Promise(resolve => setTimeout(resolve, 1500));
+
+    setIsSubmitting(false);
+    setIsSubmitted(true);
+  };
+
+  return (
+    <section id="contact" className="py-24 lg:py-32 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="text-center mb-16">
+          <motion.span
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="inline-block px-4 py-2 bg-gold-100 text-gold-700 rounded-full text-sm font-semibold mb-4"
+          >
+            Kontakt
+          </motion.span>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold text-navy-900 mb-6"
+          >
+            Skontaktuj się z Nami
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="text-navy-600 max-w-2xl mx-auto text-lg"
+          >
+            Umów się na bezpłatną konsultację. Odpowiemy w ciągu 2 godzin roboczych.
+          </motion.p>
+        </div>
+
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
+          {/* Contact Form */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="bg-white rounded-3xl p-8 lg:p-10 shadow-elevated border border-navy-100"
+          >
+            {isSubmitted ? (
+              <div className="text-center py-12">
+                <div className="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <svg className="w-10 h-10 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <h3 className="text-2xl font-display font-bold text-navy-900 mb-2">Dziękujemy!</h3>
+                <p className="text-navy-600">Skontaktujemy się z Tobą w ciągu 2 godzin roboczych.</p>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div>
+                  <label htmlFor="name" className="block text-sm font-semibold text-navy-900 mb-2">
+                    Imię i Nazwisko *
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    required
+                    value={formState.name}
+                    onChange={(e) => setFormState(prev => ({ ...prev, name: e.target.value }))}
+                    className="input-premium"
+                    placeholder="Jan Kowalski"
+                  />
+                </div>
+
+                <div className="grid sm:grid-cols-2 gap-6">
+                  <div>
+                    <label htmlFor="email" className="block text-sm font-semibold text-navy-900 mb-2">
+                      Email *
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      required
+                      value={formState.email}
+                      onChange={(e) => setFormState(prev => ({ ...prev, email: e.target.value }))}
+                      className="input-premium"
+                      placeholder="jan@firma.pl"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="phone" className="block text-sm font-semibold text-navy-900 mb-2">
+                      Telefon *
+                    </label>
+                    <input
+                      type="tel"
+                      id="phone"
+                      required
+                      value={formState.phone}
+                      onChange={(e) => setFormState(prev => ({ ...prev, phone: e.target.value }))}
+                      className="input-premium"
+                      placeholder="+48 600 000 000"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label htmlFor="message" className="block text-sm font-semibold text-navy-900 mb-2">
+                    Wiadomość
+                  </label>
+                  <textarea
+                    id="message"
+                    rows={4}
+                    value={formState.message}
+                    onChange={(e) => setFormState(prev => ({ ...prev, message: e.target.value }))}
+                    className="input-premium resize-none"
+                    placeholder="Opisz swoją działalność i potrzeby..."
+                  />
+                </div>
+
+                <div className="flex items-start gap-3">
+                  <input
+                    type="checkbox"
+                    id="gdpr"
+                    required
+                    checked={formState.gdpr}
+                    onChange={(e) => setFormState(prev => ({ ...prev, gdpr: e.target.checked }))}
+                    className="mt-1"
+                  />
+                  <label htmlFor="gdpr" className="text-sm text-navy-600">
+                    Wyrażam zgodę na przetwarzanie moich danych osobowych w celu odpowiedzi na zapytanie.
+                    <a href="/privacy-policy.html" target="_blank" rel="noopener noreferrer" className="text-navy-900 underline hover:no-underline ml-1">
+                      Polityka Prywatności
+                    </a>
+                  </label>
+                </div>
+
+                <Button type="submit" variant="gold" className="w-full" disabled={isSubmitting}>
+                  {isSubmitting ? 'Wysyłanie...' : 'Wyślij wiadomość'}
+                </Button>
+              </form>
+            )}
+          </motion.div>
+
+          {/* Contact Info & Map */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="space-y-8"
+          >
+            {/* Contact Details */}
+            <div className="bg-navy-900 rounded-3xl p-8 lg:p-10 text-white">
+              <h3 className="text-2xl font-display font-bold mb-8">Dane Kontaktowe</h3>
+
+              <div className="space-y-6">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center text-gold-400 flex-shrink-0">
+                    {Icons.mapPin}
+                  </div>
+                  <div>
+                    <p className="font-semibold text-white mb-1">Adres</p>
+                    <p className="text-navy-200">
+                      {BUSINESS_INFO.address.street}<br />
+                      {BUSINESS_INFO.address.zip} {BUSINESS_INFO.address.city}
+                    </p>
+                    <p className="text-navy-400 text-sm mt-1">{BUSINESS_INFO.address.description}</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center text-gold-400 flex-shrink-0">
+                    {Icons.phone}
+                  </div>
+                  <div>
+                    <p className="font-semibold text-white mb-1">Telefon</p>
+                    <a href={`tel:${BUSINESS_INFO.contact.phone}`} className="text-gold-400 text-lg font-medium hover:text-gold-300 transition-colors">
+                      {BUSINESS_INFO.contact.phone}
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center text-gold-400 flex-shrink-0">
+                    {Icons.mail}
+                  </div>
+                  <div>
+                    <p className="font-semibold text-white mb-1">Email</p>
+                    <a href={`mailto:${BUSINESS_INFO.contact.email}`} className="text-navy-200 hover:text-white transition-colors">
+                      {BUSINESS_INFO.contact.email}
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center text-gold-400 flex-shrink-0">
+                    {Icons.clock}
+                  </div>
+                  <div>
+                    <p className="font-semibold text-white mb-1">Godziny Otwarcia</p>
+                    {BUSINESS_INFO.openingHours.map((h, i) => (
+                      <p key={i} className="text-navy-200 text-sm">
+                        <span className="text-navy-400">{h.days}:</span> {h.hours}
+                      </p>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Google Map */}
+            <div className="rounded-3xl overflow-hidden h-64 lg:h-80 shadow-depth-md border border-navy-100">
+              <iframe
+                src="https://maps.google.com/maps?q=Nakielska+156,+85-391+Bydgoszcz,+Poland&output=embed"
+                className="w-full h-full"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Lokalizacja biura rachunkowego - ul. Nakielska 156, Bydgoszcz"
+              />
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// Footer
 const Footer = () => (
-  <footer className="py-12 bg-white border-t border-gray-100">
-    <div className="max-w-7xl mx-auto px-6">
-      <div className="flex flex-col md:flex-row justify-between items-center gap-8">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-[#004D40] rounded flex items-center justify-center">
-            <span className="text-white font-bold text-lg">K</span>
+  <footer className="bg-navy-900 text-white py-16">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6">
+      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+        {/* Brand */}
+        <div className="lg:col-span-1">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-12 h-12 bg-gold-500 rounded-xl flex items-center justify-center">
+              <span className="text-navy-900 font-display font-bold text-xl">K</span>
+            </div>
+            <div>
+              <span className="font-display font-bold text-lg block">Księgowa</span>
+              <span className="text-navy-400 text-sm">Dla Ciebie</span>
+            </div>
           </div>
-          <span className="font-display font-bold text-lg">Księgowa Dla Ciebie</span>
+          <p className="text-navy-300 text-sm leading-relaxed mb-6">
+            Profesjonalne biuro rachunkowe w Bydgoszczy. Pełna księgowość, kadry i płace, doradztwo podatkowe.
+          </p>
+          <div className="space-y-1 text-sm text-navy-400">
+            {BUSINESS_INFO.legal && (
+              <>
+                <p>NIP: {BUSINESS_INFO.legal.nip}</p>
+                <p>REGON: {BUSINESS_INFO.legal.regon}</p>
+              </>
+            )}
+          </div>
         </div>
 
-        <div className="flex flex-wrap justify-center gap-8 text-sm text-gray-500">
-          <a href="/privacy-policy.html" target="_blank" rel="noopener noreferrer" className="hover:text-black transition-colors">Polityka Prywatności</a>
-          <a href="/privacy-policy.html#cookies" target="_blank" rel="noopener noreferrer" className="hover:text-black transition-colors">Cookies</a>
-          <a href="/privacy-policy.html" target="_blank" rel="noopener noreferrer" className="hover:text-black transition-colors">GDPR / RODO</a>
+        {/* Quick Links */}
+        <div>
+          <h4 className="font-display font-bold text-white mb-6">Usługi</h4>
+          <ul className="space-y-3">
+            {SERVICES.map(service => (
+              <li key={service.id}>
+                <a href={`#services`} className="text-navy-300 hover:text-gold-400 transition-colors text-sm">
+                  {service.title}
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
 
-        <p className="text-xs text-gray-400">
-          © {new Date().getFullYear()} {BUSINESS_INFO.name}. Projekt: Modern Accountant.
+        {/* Contact */}
+        <div>
+          <h4 className="font-display font-bold text-white mb-6">Kontakt</h4>
+          <ul className="space-y-3 text-sm">
+            <li className="text-navy-300">
+              {BUSINESS_INFO.address.street}<br />
+              {BUSINESS_INFO.address.zip} {BUSINESS_INFO.address.city}
+            </li>
+            <li>
+              <a href={`tel:${BUSINESS_INFO.contact.phone}`} className="text-gold-400 hover:text-gold-300 transition-colors font-medium">
+                {BUSINESS_INFO.contact.phone}
+              </a>
+            </li>
+            <li>
+              <a href={`mailto:${BUSINESS_INFO.contact.email}`} className="text-navy-300 hover:text-white transition-colors">
+                {BUSINESS_INFO.contact.email}
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        {/* Legal */}
+        <div>
+          <h4 className="font-display font-bold text-white mb-6">Informacje</h4>
+          <ul className="space-y-3 text-sm">
+            <li>
+              <a href="/privacy-policy.html" target="_blank" rel="noopener noreferrer" className="text-navy-300 hover:text-white transition-colors">
+                Polityka Prywatności
+              </a>
+            </li>
+            <li>
+              <a href="/privacy-policy.html#cookies" target="_blank" rel="noopener noreferrer" className="text-navy-300 hover:text-white transition-colors">
+                Polityka Cookies
+              </a>
+            </li>
+            <li>
+              <a href="/privacy-policy.html#rodo" target="_blank" rel="noopener noreferrer" className="text-navy-300 hover:text-white transition-colors">
+                RODO / GDPR
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      {/* Bottom Bar */}
+      <div className="pt-8 border-t border-navy-800 flex flex-col md:flex-row justify-between items-center gap-4">
+        <p className="text-navy-400 text-sm">
+          © {new Date().getFullYear()} {BUSINESS_INFO.name}. Wszelkie prawa zastrzeżone.
         </p>
+        <div className="flex items-center gap-2 text-navy-400 text-sm">
+          <span>Certyfikowane biuro rachunkowe</span>
+          <span className="w-1.5 h-1.5 bg-gold-500 rounded-full" />
+          <span>Ubezpieczenie OC</span>
+        </div>
       </div>
     </div>
   </footer>
 );
 
+// Main App
 export default function App() {
   return (
-    <div className="antialiased">
+    <div className="antialiased bg-white">
       <Header />
       <Hero />
+      <TrustBadgesSection />
       <Services />
       <WhyChooseUs />
-      <React.Suspense fallback={<div className="py-24 text-center text-gray-500">Ładowanie kalkulatora...</div>}>
+      <Pricing />
+      <React.Suspense fallback={
+        <div className="py-24 text-center text-navy-500">
+          <div className="w-8 h-8 border-2 border-navy-200 border-t-navy-900 rounded-full animate-spin mx-auto mb-4" />
+          Ładowanie kalkulatora...
+        </div>
+      }>
         <Calculator />
       </React.Suspense>
       <Contact />
       <Footer />
 
-      {/* Cookie Consent Banner */}
+      {/* Cookie Consent */}
       <CookieConsent />
 
       {/* Sticky Mobile CTA */}
-      <div className="fixed bottom-6 left-6 right-6 z-40 md:hidden">
-        <Button variant="primary" className="w-full shadow-studio-hover backdrop-blur-xl" onClick={() => window.location.href = 'tel:+48694908338'}>
-          <svg className="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <div className="fixed bottom-6 left-4 right-4 z-40 md:hidden">
+        <Button
+          variant="gold"
+          className="w-full shadow-elevated"
+          onClick={() => window.location.href = `tel:${BUSINESS_INFO.contact.phone}`}
+        >
+          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
           </svg>
-          Umów darmową konsultację
+          Zadzwoń teraz: {BUSINESS_INFO.contact.phone}
         </Button>
       </div>
     </div>
