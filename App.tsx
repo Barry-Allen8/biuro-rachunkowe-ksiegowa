@@ -213,7 +213,7 @@ const Header = () => {
 
 // Hero Section
 const Hero = () => (
-  <header className="relative min-h-screen flex items-center pt-20 overflow-hidden bg-gradient-to-br from-navy-50 via-white to-navy-50">
+  <header className="relative min-h-screen flex items-center pt-20 pb-16 lg:pb-20 overflow-hidden bg-gradient-to-br from-navy-50 via-white to-navy-50">
     {/* Background Pattern */}
     <div className="absolute inset-0 pattern-dots opacity-50" />
 
@@ -240,21 +240,21 @@ const Hero = () => (
           </motion.div>
 
           {/* SEO-Optimized H1 */}
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-display font-bold leading-[1.1] mb-6 tracking-tight">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-display font-bold leading-[1.1] mb-8 tracking-tight">
             <motion.span className="block text-navy-900" variants={{ hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { duration: 0.8 } } }}>
               Biuro Rachunkowe
             </motion.span>
             <motion.span className="block text-navy-900" variants={{ hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { duration: 0.8 } } }}>
               Bydgoszcz
             </motion.span>
-            <motion.span className="block text-gradient-gold text-3xl sm:text-4xl lg:text-5xl xl:text-6xl mt-2" variants={{ hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { duration: 0.8 } } }}>
+            <motion.span className="block text-gradient-gold text-3xl sm:text-4xl lg:text-5xl xl:text-6xl mt-3 mb-2" variants={{ hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { duration: 0.8 } } }}>
               Kompleksowa Księgowość i Kadry
             </motion.span>
           </h1>
 
           <motion.p
             variants={{ hidden: { opacity: 0 }, visible: { opacity: 1, transition: { duration: 0.8, delay: 0.3 } } }}
-            className="text-lg sm:text-xl text-navy-600 mb-8 leading-relaxed max-w-lg"
+            className="text-lg sm:text-xl text-navy-600 mb-10 leading-relaxed max-w-lg"
           >
             Profesjonalna <strong>pełna księgowość</strong>, <strong>obsługa kadr i płac</strong>, <strong>KPiR</strong>, <strong>ryczałt</strong> oraz rozliczenia <strong>CIT</strong>, <strong>PIT</strong>, <strong>VAT</strong> i <strong>ZUS</strong>. Certyfikat MF, ubezpieczenie OC. Zaufało nam ponad 150 firm.
           </motion.p>
@@ -277,15 +277,15 @@ const Hero = () => (
 
           {/* Trust Indicators */}
           <motion.div
-            className="flex flex-wrap gap-6 mt-10 pt-10 border-t border-navy-100"
+            className="flex flex-wrap items-center justify-start gap-8 mt-12 pt-10 border-t border-navy-100"
             variants={{ hidden: { opacity: 0 }, visible: { opacity: 1, transition: { duration: 0.8, delay: 0.7 } } }}
           >
             {TRUST_BADGES.map((badge) => (
-              <div key={badge.id} className="flex items-center gap-2 text-navy-600">
-                <div className="w-10 h-10 bg-navy-900 rounded-lg flex items-center justify-center text-white">
+              <div key={badge.id} className="flex items-center gap-3 text-navy-600">
+                <div className="w-11 h-11 bg-navy-900 rounded-xl flex items-center justify-center text-white shadow-sm">
                   {getIcon(badge.icon)}
                 </div>
-                <span className="text-sm font-medium">{badge.shortTitle}</span>
+                <span className="text-sm font-semibold">{badge.shortTitle}</span>
               </div>
             ))}
           </motion.div>
@@ -299,7 +299,7 @@ const Hero = () => (
         transition={{ duration: 0.8, delay: 0.3 }}
         className="relative hidden lg:block"
       >
-        <div className="relative">
+        <div className="relative pb-4 pl-4">
           {/* Main Card */}
           <div className="bg-white rounded-3xl p-8 shadow-elevated border border-navy-100">
             <img
@@ -327,10 +327,10 @@ const Hero = () => (
             </div>
           </div>
 
-          {/* Floating Badge */}
+          {/* Floating Badge - positioned to avoid overlap */}
           <motion.div
-            className="absolute -bottom-6 -left-6 bg-gold-500 text-navy-900 px-6 py-4 rounded-2xl shadow-gold"
-            animate={{ y: [0, -8, 0] }}
+            className="absolute -bottom-2 left-0 bg-gold-500 text-navy-900 px-6 py-4 rounded-2xl shadow-lg border border-gold-400/20 z-10"
+            animate={{ y: [0, -6, 0] }}
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
           >
             <p className="font-display font-bold text-lg">Certyfikat MF</p>
@@ -344,9 +344,9 @@ const Hero = () => (
 
 // Trust Badges Section
 const TrustBadgesSection = () => (
-  <section className="py-16 bg-white border-y border-navy-100">
+  <section className="py-20 bg-white border-y border-navy-100">
     <div className="max-w-7xl mx-auto px-4 sm:px-6">
-      <div className="grid md:grid-cols-3 gap-8">
+      <div className="grid md:grid-cols-3 gap-6 lg:gap-8 max-w-5xl mx-auto">
         {TRUST_BADGES.map((badge, idx) => (
           <motion.div
             key={badge.id}
@@ -354,14 +354,14 @@ const TrustBadgesSection = () => (
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: idx * 0.1, duration: 0.5 }}
-            className="flex items-start gap-4 p-6 bg-navy-50 rounded-2xl hover:bg-navy-100 transition-colors duration-300"
+            className="flex items-start gap-4 p-6 bg-navy-50 rounded-2xl hover:bg-navy-100 hover:shadow-sm transition-all duration-300"
           >
-            <div className="flex-shrink-0 w-14 h-14 bg-navy-900 rounded-xl flex items-center justify-center text-gold-400">
+            <div className="flex-shrink-0 w-14 h-14 bg-navy-900 rounded-xl flex items-center justify-center text-gold-400 shadow-sm">
               {getIcon(badge.icon)}
             </div>
             <div>
-              <h3 className="font-display font-bold text-navy-900 mb-1">{badge.title}</h3>
-              <p className="text-sm text-navy-600">{badge.description}</p>
+              <h3 className="font-display font-bold text-navy-900 mb-1.5">{badge.title}</h3>
+              <p className="text-sm text-navy-600 leading-relaxed">{badge.description}</p>
             </div>
           </motion.div>
         ))}
@@ -407,7 +407,7 @@ const CertyfikatySection = () => (
         </motion.p>
       </div>
 
-      <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+      <div className="grid md:grid-cols-2 gap-6 lg:gap-8 max-w-4xl mx-auto">
         {/* Certyfikat Ministra Finansów */}
         <motion.div
           initial={{ opacity: 0, x: -30 }}
@@ -477,17 +477,17 @@ const CertyfikatySection = () => (
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ delay: 0.3 }}
-        className="mt-12 flex flex-wrap justify-center gap-6 text-center"
+        className="mt-16 flex flex-wrap justify-center items-center gap-4 sm:gap-6 text-center"
       >
-        <div className="px-6 py-3 bg-white/5 rounded-full border border-white/10">
+        <div className="px-6 py-3.5 bg-white/5 rounded-full border border-white/10 hover:bg-white/10 transition-colors">
           <span className="text-gold-400 font-bold">15+</span>
           <span className="text-navy-200 ml-2">lat doświadczenia</span>
         </div>
-        <div className="px-6 py-3 bg-white/5 rounded-full border border-white/10">
+        <div className="px-6 py-3.5 bg-white/5 rounded-full border border-white/10 hover:bg-white/10 transition-colors">
           <span className="text-gold-400 font-bold">150+</span>
           <span className="text-navy-200 ml-2">obsłużonych firm</span>
         </div>
-        <div className="px-6 py-3 bg-white/5 rounded-full border border-white/10">
+        <div className="px-6 py-3.5 bg-white/5 rounded-full border border-white/10 hover:bg-white/10 transition-colors">
           <span className="text-gold-400 font-bold">100%</span>
           <span className="text-navy-200 ml-2">zgodność z RODO</span>
         </div>
