@@ -25,11 +25,10 @@ Ten projekt to wysokiej klasy strona typu Landing Page dla biura rachunkowego w 
   - Niebawem: TypeScript 6.0 i 7.0 (2026)
 
 #### Stylizacja
-- **Tailwind CSS** `^4.1.18` (najnowsza wersja stabilna)
-  - Nowości w v4: CSS-first configuration
-  - Oxide performance engine dla szybszych buildów
-  - OKLCH kolory domyślnie
-  - Wsparcie: Safari 16.4+, Chrome 111+, Firefox 128+
+- **Tailwind CSS** `^3.4.1` (najnowsza wersja stabilna v3 - zalecana)
+  - Pełna kompatybilność ze starszymi przeglądarkami
+  - Stabilna konfiguracja JavaScript
+  - v4.1.18 dostępna, ale wymaga migracji konfiguracji do CSS
 
 #### Animacje i Interakcje
 - **Framer Motion** `^12.29.2` (najnowsza wersja stabilna)
