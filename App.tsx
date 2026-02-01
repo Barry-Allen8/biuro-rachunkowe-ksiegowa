@@ -34,15 +34,24 @@ const Header = () => {
     });
   };
 
+  // Make logo intentionally interactive - scroll to top on click
+  const handleLogoClick = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled ? 'glass py-4' : 'bg-transparent py-8'}`}>
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-        <div className="flex items-center gap-2">
+        <button
+          onClick={handleLogoClick}
+          className="flex items-center gap-2 cursor-pointer group transition-all duration-150 ease-out hover:opacity-80 hover:-translate-y-0.5 active:scale-[0.98] active:opacity-70"
+          aria-label="Scroll to top"
+        >
           <div className="w-10 h-10 bg-[#004D40] rounded-lg flex items-center justify-center">
             <span className="text-white font-bold text-xl">K</span>
           </div>
           <span className="font-display font-bold text-xl hidden sm:block">Księgowa Dla Ciebie</span>
-        </div>
+        </button>
 
         <div className="hidden md:flex items-center gap-10 font-medium text-sm">
           <a href="#services" onClick={handleNavClick} className="hover:text-[#004D40] transition-colors">Usługi</a>
