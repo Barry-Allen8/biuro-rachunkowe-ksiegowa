@@ -242,11 +242,18 @@ input[type="checkbox"] {
   appearance: none;
   width: 20px;
   height: 20px;
+  min-width: 20px;
+  min-height: 20px;
   border: 2px solid #bcccdc;
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.2s ease;
   position: relative;
+  box-sizing: border-box;
+  display: inline-grid;
+  place-content: center;
+  overflow: hidden;
+  vertical-align: middle;
 }
 
 input[type="checkbox"]:checked {
@@ -256,14 +263,14 @@ input[type="checkbox"]:checked {
 
 input[type="checkbox"]:checked::after {
   content: '';
-  position: absolute;
-  left: 6px;
-  top: 2px;
-  width: 5px;
+  width: 6px;
   height: 10px;
   border: solid white;
   border-width: 0 2px 2px 0;
   transform: rotate(45deg);
+  transform-origin: center;
+  display: block;
+  margin-top: -1px;
 }
 
 input[type="checkbox"]:focus {
