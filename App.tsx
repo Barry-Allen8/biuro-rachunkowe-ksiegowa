@@ -231,14 +231,6 @@ const Hero = () => (
             visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.1 } }
           }}
         >
-          {/* Location Badge */}
-          <motion.div variants={{ hidden: { y: 10, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { duration: 0.6 } } }}>
-            <span className="inline-flex items-center gap-2 px-4 py-2 bg-white text-navy-600 rounded-full text-sm font-medium shadow-depth-sm border border-navy-100 mb-8">
-              {Icons.mapPin}
-              <span>Bydgoszcz, ul. Nakielska 156</span>
-            </span>
-          </motion.div>
-
           {/* SEO-Optimized H1 */}
           <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-display font-bold leading-[1.2] mb-8 tracking-tight overflow-visible">
             <motion.span className="block text-navy-900" variants={{ hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { duration: 0.8 } } }}>
