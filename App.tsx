@@ -120,14 +120,14 @@ const Header = () => {
           {/* Logo */}
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="flex items-center gap-3 group"
+            className="flex items-center gap-3 group cursor-pointer"
             aria-label="Przewiń do góry strony"
           >
-            <div className="h-11 sm:h-12 flex items-center justify-center transition-all duration-300">
+            <div className="h-[50px] sm:h-[65px] lg:h-[75px] p-1 flex items-center justify-center transition-all duration-300 group-hover:scale-105">
               <img
                 src="/IR.svg"
                 alt="IR Księgowa dla Ciebie - Biuro Rachunkowe Bydgoszcz - logo"
-                className="h-full w-auto max-w-[160px] sm:max-w-[200px] object-contain"
+                className="h-full w-auto max-w-[180px] sm:max-w-[220px] lg:max-w-[260px] object-contain drop-shadow-sm transition-opacity duration-300 group-hover:opacity-90"
                 loading="eager"
                 decoding="async"
               />
