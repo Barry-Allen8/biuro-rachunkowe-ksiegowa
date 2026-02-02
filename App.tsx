@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { SERVICES, BUSINESS_INFO, TRUST_FACTORS, TRUST_BADGES, PRICING_TIERS, TESTIMONIALS, ABOUT_CONTENT } from './data/content';
+import { SERVICES, BUSINESS_INFO, TRUST_FACTORS, TRUST_BADGES, PRICING_TIERS, TESTIMONIALS, ABOUT_CONTENT, FAQ_ITEMS } from './data/content';
 import { Button } from './components/ui/Button';
 import { CookieConsent } from './components/CookieConsent';
 
@@ -121,20 +121,16 @@ const Header = () => {
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             className="flex items-center gap-3 group"
-            aria-label="Scroll to top"
+            aria-label="Przewiń do góry strony"
           >
-            <div className="w-11 h-11 bg-navy-900 rounded-xl flex items-center justify-center shadow-depth-sm group-hover:shadow-depth-md transition-all duration-300 overflow-hidden">
+            <div className="h-11 sm:h-12 flex items-center justify-center transition-all duration-300">
               <img
-                src="/logo.png"
-                alt="Księgowa dla Ciebie logo"
-                className="w-full h-full object-contain"
-                loading="lazy"
+                src="/IR.svg"
+                alt="IR Księgowa dla Ciebie - Biuro Rachunkowe Bydgoszcz - logo"
+                className="h-full w-auto max-w-[160px] sm:max-w-[200px] object-contain"
+                loading="eager"
                 decoding="async"
               />
-            </div>
-            <div className="hidden sm:block">
-              <span className="font-display font-bold text-lg text-navy-900 block leading-tight">KSIĘGOWA</span>
-              <span className="text-xs text-navy-500 font-medium">DLA CIEBIE</span>
             </div>
           </button>
 
@@ -686,6 +682,71 @@ const WhyChooseUs = () => (
   </section>
 );
 
+// Testimonials Section - All client reviews
+const TestimonialsSection = () => (
+  <section id="testimonials" className="py-24 lg:py-32 bg-navy-50">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6">
+      <div className="text-center mb-16">
+        <motion.span
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="inline-block px-4 py-2 bg-gold-100 text-gold-700 rounded-full text-sm font-semibold mb-4"
+        >
+          Opinie Klientów
+        </motion.span>
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold text-navy-900 mb-6"
+        >
+          Co Mówią Nasi Klienci
+        </motion.h2>
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="text-navy-600 max-w-2xl mx-auto text-lg"
+        >
+          Zaufało nam ponad 150 firm z Bydgoszczy i okolic. Oto co mówią o współpracy z nami.
+        </motion.p>
+      </div>
+
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+        {TESTIMONIALS.map((testimonial, idx) => (
+          <motion.div
+            key={testimonial.id}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: idx * 0.1, duration: 0.5 }}
+            className="bg-white p-8 rounded-2xl shadow-card hover:shadow-card-hover transition-all duration-500 border border-navy-100"
+          >
+            <div className="flex gap-1 mb-4">
+              {[...Array(testimonial.rating)].map((_, i) => (
+                <span key={i}>{Icons.star}</span>
+              ))}
+            </div>
+            <blockquote className="text-navy-700 mb-6 leading-relaxed">
+              "{testimonial.content}"
+            </blockquote>
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 bg-navy-900 rounded-full flex items-center justify-center text-gold-400 font-display font-bold text-lg">
+                {testimonial.name.charAt(0)}
+              </div>
+              <div>
+                <p className="font-display font-bold text-navy-900">{testimonial.name}</p>
+                <p className="text-navy-500 text-sm">{testimonial.role}, {testimonial.company}</p>
+              </div>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+    </div>
+  </section>
+);
+
 // Pricing Section
 const Pricing = () => (
   <section id="pricing" className="py-24 lg:py-32 bg-navy-50">
@@ -793,6 +854,125 @@ const Pricing = () => (
 // Lazy load Calculator
 const Calculator = React.lazy(() => import('./components/Calculator').then(module => ({ default: module.Calculator })));
 
+// FAQ Section with accordion
+const FAQ = () => {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  const toggleFAQ = (index: number) => {
+    setOpenIndex(openIndex === index ? null : index);
+  };
+
+  // Extended FAQ items for better SEO
+  const extendedFAQItems = [
+    ...FAQ_ITEMS,
+    {
+      question: "Jakie dokumenty są potrzebne do rozpoczęcia współpracy?",
+      answer: "Do rozpoczęcia współpracy potrzebujemy: wypisu z CEIDG lub KRS, NIP i REGON firmy, danych kontaktowych oraz pełnomocnictwa do reprezentowania firmy przed US i ZUS. Pomożemy Ci przygotować wszystkie niezbędne dokumenty."
+    },
+    {
+      question: "Czy oferujecie usługi dla firm spoza Bydgoszczy?",
+      answer: "Tak! Dzięki pełnej digitalizacji i możliwości współpracy online obsługujemy klientów z całej Polski. Dokumenty możesz przesyłać elektronicznie, a spotkania odbywać się mogą przez wideokonferencje."
+    },
+    {
+      question: "Jak wygląda rozliczanie się za usługi księgowe?",
+      answer: "Oferujemy przejrzyste miesięczne abonamenty bez ukrytych kosztów. Faktura wystawiana jest na początku każdego miesiąca. Cena zależy od zakresu usług i liczby dokumentów. Pierwsza konsultacja jest bezpłatna."
+    }
+  ];
+
+  return (
+    <section id="faq" className="py-24 lg:py-32 bg-white">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6">
+        <div className="text-center mb-16">
+          <motion.span
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="inline-block px-4 py-2 bg-navy-100 text-navy-700 rounded-full text-sm font-semibold mb-4"
+          >
+            Często Zadawane Pytania
+          </motion.span>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold text-navy-900 mb-6"
+          >
+            Masz Pytania?
+            <br />
+            <span className="text-gold-500">Mamy Odpowiedzi</span>
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="text-navy-600 max-w-2xl mx-auto text-lg"
+          >
+            Znajdź odpowiedzi na najczęściej zadawane pytania dotyczące naszych usług księgowych.
+          </motion.p>
+        </div>
+
+        <div className="space-y-4">
+          {extendedFAQItems.map((item, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.05 }}
+              className="border border-navy-100 rounded-2xl overflow-hidden"
+            >
+              <button
+                onClick={() => toggleFAQ(index)}
+                className="w-full px-6 py-5 text-left flex items-center justify-between bg-white hover:bg-navy-50 transition-colors"
+                aria-expanded={openIndex === index}
+              >
+                <span className="font-display font-semibold text-navy-900 pr-4">{item.question}</span>
+                <motion.svg
+                  animate={{ rotate: openIndex === index ? 180 : 0 }}
+                  transition={{ duration: 0.2 }}
+                  className="w-5 h-5 text-navy-500 flex-shrink-0"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </motion.svg>
+              </button>
+              <AnimatePresence>
+                {openIndex === index && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                    className="overflow-hidden"
+                  >
+                    <div className="px-6 pb-5 text-navy-600 leading-relaxed border-t border-navy-100 pt-4">
+                      {item.answer}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
+          ))}
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="text-center mt-12"
+        >
+          <p className="text-navy-600 mb-4">Nie znalazłeś odpowiedzi na swoje pytanie?</p>
+          <Button variant="gold" onClick={() => scrollToSection('contact')}>
+            Skontaktuj się z nami
+          </Button>
+        </motion.div>
+      </div>
+    </section>
+  );
+};
+
 // Form state type
 interface ContactFormState {
   name: string;
@@ -800,7 +980,11 @@ interface ContactFormState {
   phone: string;
   message: string;
   gdpr: boolean;
+  honeypot: string; // Spam protection
 }
+
+// Web3Forms API Key - Replace with your own key from https://web3forms.com
+const WEB3FORMS_ACCESS_KEY = 'YOUR_WEB3FORMS_ACCESS_KEY';
 
 // Contact Section
 const Contact = () => {
@@ -809,7 +993,8 @@ const Contact = () => {
     email: '',
     phone: '',
     message: '',
-    gdpr: false
+    gdpr: false,
+    honeypot: ''
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -867,6 +1052,12 @@ const Contact = () => {
     e.preventDefault();
     setSubmitError(null);
 
+    // Honeypot spam check - if filled, it's a bot
+    if (formState.honeypot) {
+      setIsSubmitted(true);
+      return;
+    }
+
     // Validate all fields
     const nameValid = validateField('name', formState.name);
     const emailValid = validateField('email', formState.email);
@@ -884,20 +1075,48 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
-      // Simulate form submission
-      await new Promise((resolve, reject) => {
-        setTimeout(() => {
-          // 95% success rate simulation
-          if (Math.random() > 0.05) resolve(true);
-          else reject(new Error('Network error'));
-        }, 1500);
+      // Submit to Web3Forms API
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_ACCESS_KEY,
+          subject: `Nowe zapytanie od ${formState.name} - Biuro Rachunkowe`,
+          from_name: 'Biuro Rachunkowe - Formularz Kontaktowy',
+          name: formState.name,
+          email: formState.email,
+          phone: formState.phone,
+          message: formState.message || 'Brak wiadomości - proszę o kontakt.',
+          zgoda_rodo: formState.gdpr ? 'Tak' : 'Nie',
+          // Redirect after submission (optional)
+          redirect: false
+        })
       });
 
+      const result = await response.json();
+
+      if (result.success) {
+        setIsSubmitting(false);
+        setIsSubmitted(true);
+        // Reset form
+        setFormState({
+          name: '',
+          email: '',
+          phone: '',
+          message: '',
+          gdpr: false,
+          honeypot: ''
+        });
+      } else {
+        throw new Error(result.message || 'Błąd wysyłania formularza');
+      }
+    } catch (error) {
       setIsSubmitting(false);
-      setIsSubmitted(true);
-    } catch {
-      setIsSubmitting(false);
-      setSubmitError('Wystąpił błąd podczas wysyłania. Spróbuj ponownie lub zadzwoń do nas.');
+      setSubmitError('Wystąpił błąd podczas wysyłania. Spróbuj ponownie lub zadzwoń do nas bezpośrednio.');
+      console.error('Form submission error:', error);
     }
   };
 
@@ -951,6 +1170,18 @@ const Contact = () => {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
+                {/* Honeypot field for spam protection - hidden from users */}
+                <input
+                  type="text"
+                  name="botcheck"
+                  value={formState.honeypot}
+                  onChange={(e) => setFormState(prev => ({ ...prev, honeypot: e.target.value }))}
+                  className="hidden"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                />
+
                 {/* Error banner */}
                 {submitError && (
                   <motion.div
@@ -1146,8 +1377,19 @@ const Contact = () => {
                   </div>
                   <div>
                     <p className="font-semibold text-white mb-1">Telefon</p>
-                    <a href={`tel:${BUSINESS_INFO.contact.phone}`} className="text-gold-400 text-lg font-medium hover:text-gold-300 transition-colors">
+                    <a href={`tel:${BUSINESS_INFO.contact.phone.replace(/\s/g, '')}`} className="text-gold-400 text-lg font-medium hover:text-gold-300 transition-colors block">
                       {BUSINESS_INFO.contact.phone}
+                    </a>
+                    <a
+                      href={`https://wa.me/${BUSINESS_INFO.contact.phone.replace(/[\s+]/g, '')}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 mt-2 text-sm text-emerald-400 hover:text-emerald-300 transition-colors"
+                    >
+                      <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                      </svg>
+                      Napisz na WhatsApp
                     </a>
                   </div>
                 </div>
@@ -1206,19 +1448,15 @@ const Footer = () => (
       <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
         {/* Brand */}
         <div className="lg:col-span-1">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-12 h-12 bg-gold-500 rounded-xl flex items-center justify-center overflow-hidden">
+          <div className="flex items-center mb-6">
+            <div className="h-12 sm:h-14 flex items-center">
               <img
-                src="/logo.png"
-                alt="Księgowa dla Ciebie logo"
-                className="w-full h-full object-contain"
+                src="/IR.svg"
+                alt="IR Księgowa dla Ciebie - Biuro Rachunkowe Bydgoszcz - logo"
+                className="h-full w-auto max-w-[180px] object-contain brightness-0 invert"
                 loading="lazy"
                 decoding="async"
               />
-            </div>
-            <div>
-              <span className="font-display font-bold text-lg block">KSIĘGOWA</span>
-              <span className="text-navy-400 text-sm">DLA CIEBIE</span>
             </div>
           </div>
           <p className="text-navy-300 text-sm leading-relaxed mb-6">
@@ -1320,6 +1558,11 @@ const Footer = () => (
                 RODO / GDPR
               </a>
             </li>
+            <li>
+              <a href="/regulamin.html" target="_blank" rel="noopener noreferrer" className="text-navy-300 hover:text-white transition-colors">
+                Regulamin Usług
+              </a>
+            </li>
           </ul>
         </div>
       </div>
@@ -1339,6 +1582,50 @@ const Footer = () => (
   </footer>
 );
 
+// Back to Top Button Component
+const BackToTop = () => {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const toggleVisibility = () => {
+      if (window.scrollY > 500) {
+        setIsVisible(true);
+      } else {
+        setIsVisible(false);
+      }
+    };
+
+    window.addEventListener('scroll', toggleVisibility);
+    return () => window.removeEventListener('scroll', toggleVisibility);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
+
+  return (
+    <AnimatePresence>
+      {isVisible && (
+        <motion.button
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.8 }}
+          onClick={scrollToTop}
+          className="fixed bottom-24 right-6 z-40 w-12 h-12 bg-navy-900 hover:bg-navy-800 text-white rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300"
+          aria-label="Przewiń do góry"
+        >
+          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
+          </svg>
+        </motion.button>
+      )}
+    </AnimatePresence>
+  );
+};
+
 // Main App
 export default function App() {
   return (
@@ -1349,6 +1636,7 @@ export default function App() {
       <CertyfikatySection />
       <Services />
       <WhyChooseUs />
+      <TestimonialsSection />
       <Pricing />
       <React.Suspense fallback={
         <div className="py-24 text-center text-navy-500">
@@ -1358,11 +1646,15 @@ export default function App() {
       }>
         <Calculator />
       </React.Suspense>
+      <FAQ />
       <Contact />
       <Footer />
 
       {/* Cookie Consent */}
       <CookieConsent />
+
+      {/* Back to Top Button */}
+      <BackToTop />
 
       {/* Floating Action Button (FAB) - Call Now */}
       <motion.a

@@ -21,6 +21,7 @@ export default defineConfig(({ mode }) => {
         input: {
           main: resolve(__dirname, 'index.html'),
           privacy: resolve(__dirname, 'privacy-policy.html'),
+          regulamin: resolve(__dirname, 'regulamin.html'),
         }
       }
     }

@@ -245,6 +245,30 @@ export const TESTIMONIALS = [
     role: "Właścicielka",
     content: "Od początku mojej działalności korzystam z usług tego biura. Pomoc przy wyborze formy opodatkowania była bezcenna.",
     rating: 5
+  },
+  {
+    id: 4,
+    name: "Piotr Zieliński",
+    company: "Zieliński Transport",
+    role: "Właściciel",
+    content: "Prowadzę firmę transportową i potrzebuję księgowej, która zna się na specyfice branży. Pani Izabela zawsze służy fachową radą i pilnuje wszystkich terminów.",
+    rating: 5
+  },
+  {
+    id: 5,
+    name: "Magdalena Dąbrowska",
+    company: "Gabinet Kosmetyczny Bellissima",
+    role: "Właścicielka",
+    content: "Jako osoba prowadząca jednoosobową działalność cenię sobie indywidualne podejście. Zawsze mogę liczyć na szybką odpowiedź i profesjonalną obsługę.",
+    rating: 5
+  },
+  {
+    id: 6,
+    name: "Tomasz Wójcik",
+    company: "Wójcik Budowa Sp. z o.o.",
+    role: "Wspólnik",
+    content: "Przeszliśmy z innego biura i różnica jest ogromna. Rzetelność, dostęp online do dokumentów i zawsze aktualne informacje o naszych finansach.",
+    rating: 5
   }
 ];
 

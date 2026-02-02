@@ -1,0 +1,19 @@
+# Robots.txt for Biuro Rachunkowe - Ksiegowa dla Ciebie
+# https://biuro-rachunkowe-ksiegowa.vercel.app
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://biuro-rachunkowe-ksiegowa.vercel.app/sitemap.xml
+
+# Disallow admin and API endpoints
+Disallow: /api/
+
+# Allow crawling of all static assets
+Allow: /*.css$
+Allow: /*.js$
+Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.webp$
+Allow: /*.svg$

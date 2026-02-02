@@ -36,8 +36,23 @@
   <meta name="twitter:image:alt" content="Księgowa dla Ciebie logo">
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="/logo.png">
-  <link rel="apple-touch-icon" href="/logo.png">
+  <link rel="icon" type="image/svg+xml" href="/IR.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/logo.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/logo.png">
+  <link rel="manifest" href="/site.webmanifest">
+
+  <!-- Google Analytics 4 - Replace GA_MEASUREMENT_ID with your actual ID -->
+  <!-- To get your ID: 1. Go to analytics.google.com 2. Create property 3. Get Measurement ID (G-XXXXXXXXXX) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'GA_MEASUREMENT_ID', {
+      'anonymize_ip': true,
+      'cookie_flags': 'SameSite=None;Secure'
+    });
+  </script>
 
   <!-- Preconnect to fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
