@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { SERVICES, BUSINESS_INFO, TRUST_FACTORS, TRUST_BADGES, PRICING_TIERS, TESTIMONIALS } from './data/content';
+import { SERVICES, BUSINESS_INFO, TRUST_FACTORS, TRUST_BADGES, PRICING_TIERS, TESTIMONIALS, ABOUT_CONTENT } from './data/content';
 import { Button } from './components/ui/Button';
 import { CookieConsent } from './components/CookieConsent';
 
@@ -294,13 +294,18 @@ const Hero = () => (
         <div className="flex flex-col gap-8">
           {/* Main Card */}
           <div className="bg-white rounded-3xl p-8 shadow-elevated border border-navy-100">
-            <img
-              src="/hero-workspace.png"
-              alt="Biuro Rachunkowe Bydgoszcz ul. Nakielska 156 - profesjonalna księgowość, kadry i płace, rozliczenia CIT PIT VAT ZUS"
-              className="w-full h-auto rounded-2xl"
-              loading="lazy"
-              decoding="async"
-            />
+            <picture>
+              <source srcSet="/hero-workspace.webp" type="image/webp" />
+              <img
+                src="/hero-workspace.png"
+                alt="Biuro Rachunkowe Bydgoszcz ul. Nakielska 156 - profesjonalna księgowość, kadry i płace, rozliczenia CIT PIT VAT ZUS"
+                className="w-full h-auto rounded-2xl"
+                loading="lazy"
+                decoding="async"
+                width="600"
+                height="400"
+              />
+            </picture>
 
             {/* Stats Overlay */}
             <div className="mt-6 grid grid-cols-3 gap-4">
@@ -556,7 +561,7 @@ const Services = () => (
   </section>
 );
 
-// Why Choose Us Section
+// Why Choose Us Section - Enhanced with compelling story
 const WhyChooseUs = () => (
   <section id="about" className="py-24 lg:py-32 bg-navy-900 text-white overflow-hidden relative">
     {/* Background Pattern */}
@@ -574,7 +579,7 @@ const WhyChooseUs = () => (
             viewport={{ once: true }}
             className="inline-block px-4 py-2 bg-white/10 text-gold-400 rounded-full text-sm font-semibold mb-6"
           >
-            Dlaczego My?
+            O Nas
           </motion.span>
 
           <motion.h2
@@ -583,19 +588,38 @@ const WhyChooseUs = () => (
             viewport={{ once: true }}
             className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold mb-6"
           >
-            Księgowa Bydgoszcz
+            {ABOUT_CONTENT.headline}
             <br />
-            <span className="text-gold-400">ul. Nakielska 156</span>
+            <span className="text-gold-400">{ABOUT_CONTENT.subheadline}</span>
           </motion.h2>
 
-          <motion.p
+          <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="text-navy-200 text-lg mb-10 leading-relaxed"
+            className="text-navy-200 text-base mb-8 leading-relaxed space-y-4"
           >
-            Wierzymy, że księgowość to nie tylko cyfry — to fundament Twojego spokoju. Nasze biuro rachunkowe łączy wieloletnie doświadczenie z nowoczesnymi rozwiązaniami.
-          </motion.p>
+            {ABOUT_CONTENT.story.split('\n\n').map((paragraph, idx) => (
+              <p key={idx}>{paragraph}</p>
+            ))}
+          </motion.div>
+
+          {/* Highlights */}
+          <motion.ul
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="space-y-3 mb-10"
+          >
+            {ABOUT_CONTENT.highlights.map((highlight, idx) => (
+              <li key={idx} className="flex items-center gap-3 text-gold-400">
+                <svg className="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                <span className="text-white text-sm">{highlight}</span>
+              </li>
+            ))}
+          </motion.ul>
 
           <div className="grid sm:grid-cols-2 gap-6">
             {TRUST_FACTORS.map((factor, i) => (
@@ -1189,11 +1213,33 @@ const Footer = () => (
           <p className="text-navy-300 text-sm leading-relaxed mb-6">
             Profesjonalne biuro rachunkowe w Bydgoszczy. Pełna księgowość, kadry i płace, doradztwo podatkowe.
           </p>
-          <div className="space-y-1 text-sm text-navy-400">
+
+          {/* Trust badges */}
+          <div className="flex items-center gap-4 mb-4">
+            <div className="flex items-center gap-2 px-3 py-1.5 bg-gold-500/10 rounded-lg border border-gold-500/20">
+              <svg className="w-4 h-4 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+              </svg>
+              <span className="text-xs text-gold-400 font-medium">Certyfikat MF</span>
+            </div>
+            <div className="flex items-center gap-2 px-3 py-1.5 bg-emerald-500/10 rounded-lg border border-emerald-500/20">
+              <svg className="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+              </svg>
+              <span className="text-xs text-emerald-400 font-medium">Ubezpieczenie OC</span>
+            </div>
+          </div>
+
+          {/* Legal identifiers */}
+          <div className="space-y-1.5 text-sm">
             {BUSINESS_INFO.legal && (
               <>
-                <p>NIP: {BUSINESS_INFO.legal.nip}</p>
-                <p>REGON: {BUSINESS_INFO.legal.regon}</p>
+                <p className="text-navy-400">
+                  <span className="text-navy-500 font-medium">NIP:</span> {BUSINESS_INFO.legal.nip}
+                </p>
+                <p className="text-navy-400">
+                  <span className="text-navy-500 font-medium">REGON:</span> {BUSINESS_INFO.legal.regon}
+                </p>
               </>
             )}
           </div>
@@ -1297,19 +1343,27 @@ export default function App() {
       {/* Cookie Consent */}
       <CookieConsent />
 
-      {/* Sticky Mobile CTA */}
-      <div className="fixed bottom-6 left-4 right-4 z-40 md:hidden">
-        <Button
-          variant="gold"
-          className="w-full shadow-elevated"
-          onClick={() => window.location.href = `tel:${BUSINESS_INFO.contact.phone}`}
-        >
-          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-          </svg>
-          Zadzwoń teraz: {BUSINESS_INFO.contact.phone}
-        </Button>
-      </div>
+      {/* Floating Action Button (FAB) - Call Now */}
+      <motion.a
+        href={`tel:${BUSINESS_INFO.contact.phone}`}
+        className="fixed bottom-6 right-6 z-40 w-16 h-16 bg-gold-500 hover:bg-gold-400 text-navy-900 rounded-full flex items-center justify-center shadow-elevated hover:shadow-xl transition-all duration-300 group"
+        initial={{ scale: 0, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ delay: 1, duration: 0.3, type: "spring" }}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.95 }}
+        aria-label="Zadzwoń teraz"
+      >
+        <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+        </svg>
+        {/* Tooltip on hover - desktop only */}
+        <span className="absolute right-full mr-3 px-3 py-2 bg-navy-900 text-white text-sm font-medium rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 hidden lg:block">
+          Zadzwoń: {BUSINESS_INFO.contact.phone}
+        </span>
+        {/* Pulse animation ring */}
+        <span className="absolute inset-0 rounded-full bg-gold-500 animate-ping opacity-20" />
+      </motion.a>
     </div>
   );
 }

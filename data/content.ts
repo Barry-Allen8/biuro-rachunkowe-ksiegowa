@@ -21,8 +21,8 @@ export const BUSINESS_INFO: BusinessData = {
   ],
   // Legal business identifiers - UPDATE WITH REAL VALUES
   legal: {
-    nip: "[ENTER_NIP]",
-    regon: "[ENTER_REGON]",
+    nip: "000-000-00-00",
+    regon: "000000000",
   }
 };
 
@@ -106,6 +106,23 @@ export const TRUST_BADGES = [
     icon: "users"
   }
 ];
+
+// About section - compelling story
+export const ABOUT_CONTENT = {
+  headline: "Nowoczesne Biuro Rachunkowe w Bydgoszczy",
+  subheadline: "ul. Nakielska 156",
+  story: `Jesteśmy nowoczesnym biurem rachunkowym, które łączy tradycyjne wartości z innowacyjnymi rozwiązaniami. Specjalizujemy się w digitalizacji dokumentów — Twoje faktury, umowy i sprawozdania przechowujemy bezpiecznie w chmurze, z dostępem 24/7.
+
+Nasz zespół to doświadczeni księgowi, którzy rozumieją wyzwania współczesnego przedsiębiorcy. Oferujemy nie tylko prowadzenie ksiąg, ale przede wszystkim optymalizację podatkową i strategiczne doradztwo, które realnie wpływa na Twój zysk.
+
+Wierzymy w indywidualne podejście — każdy klient ma dedykowanego opiekuna, który zna specyfikę jego branży i jest dostępny wtedy, gdy go potrzebujesz.`,
+  highlights: [
+    "Digitalizacja dokumentów i dostęp online 24/7",
+    "Optymalizacja podatkowa dopasowana do Twojej firmy",
+    "Dedykowany opiekun znający Twoją branżę",
+    "Wsparcie przy kontrolach skarbowych"
+  ]
+};
 
 // Why choose us - competitive advantages
 export const TRUST_FACTORS = [
