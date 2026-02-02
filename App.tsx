@@ -123,11 +123,11 @@ const Header = () => {
             className="flex items-center gap-3 group cursor-pointer"
             aria-label="Przewiń do góry strony"
           >
-            <div className="h-[50px] sm:h-[65px] lg:h-[75px] p-1 flex items-center justify-center transition-all duration-300 group-hover:scale-105">
+            <div className="h-[75px] sm:h-[98px] lg:h-[112px] p-1 flex items-center justify-center transition-all duration-300 group-hover:scale-105">
               <img
                 src="/IR.svg"
                 alt="IR Księgowa dla Ciebie - Biuro Rachunkowe Bydgoszcz - logo"
-                className="h-full w-auto max-w-[180px] sm:max-w-[220px] lg:max-w-[260px] object-contain drop-shadow-sm transition-opacity duration-300 group-hover:opacity-90"
+                className="h-full w-auto max-w-[270px] sm:max-w-[330px] lg:max-w-[390px] object-contain drop-shadow-sm transition-opacity duration-300 group-hover:opacity-90"
                 loading="eager"
                 decoding="async"
               />
