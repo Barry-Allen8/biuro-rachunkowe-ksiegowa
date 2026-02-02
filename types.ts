@@ -14,6 +14,7 @@ export interface BusinessData {
     street: string;
     city: string;
     zip: string;
+    region?: string;
     description: string;
   };
   contact: {

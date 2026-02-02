@@ -2,12 +2,13 @@ import { BusinessData, Service } from '../types';
 
 // SEO-optimized business information for Bydgoszcz
 export const BUSINESS_INFO: BusinessData = {
-  name: "KSIĘGOWA DLA CIEBIE – Izabela Romańska",
-  fullName: "KSIĘGOWA DLA CIEBIE – Izabela Romańska | Biuro Rachunkowe Bydgoszcz",
+  name: "Izabela Romańska Księgowa Dla Ciebie",
+  fullName: "Izabela Romańska Księgowa Dla Ciebie | Biuro Rachunkowe Bydgoszcz",
   address: {
-    street: "ul. Głogowska 20E/2",
+    street: "Głogowska 20E lok. 2",
     city: "Bydgoszcz",
-    zip: "85-000",
+    zip: "85-381",
+    region: "woj. kujawsko-pomorskie",
     description: "Profesjonalna obsługa księgowa w sercu Bydgoszczy."
   },
   contact: {
@@ -24,8 +25,8 @@ export const BUSINESS_INFO: BusinessData = {
   ],
   // Legal business identifiers
   legal: {
-    nip: "000-000-00-00",
-    regon: "000000000",
+    nip: "536-179-15-92",
+    regon: "382170720",
   }
 };
 
@@ -114,7 +115,7 @@ export const TRUST_BADGES = [
 export const ABOUT_CONTENT = {
   headline: "Izabela Romańska",
   subheadline: "– Twoja Księgowa w Bydgoszczy",
-  story: `Jestem Izabela Romańska, właścicielka biura rachunkowego KSIĘGOWA DLA CIEBIE. Od ponad 15 lat pomagam przedsiębiorcom w Bydgoszczy prowadzić finanse ich firm. Specjalizuję się w kompleksowej obsłudze księgowej, kadrach i płacach oraz doradztwie podatkowym.
+  story: `Jestem Izabela Romańska, właścicielka biura rachunkowego Księgowa Dla Ciebie. Od ponad 15 lat pomagam przedsiębiorcom w Bydgoszczy prowadzić finanse ich firm. Specjalizuję się w kompleksowej obsłudze księgowej, kadrach i płacach oraz doradztwie podatkowym.
 
 Moje biuro to nowoczesne podejście do księgowości — digitalizacja dokumentów, dostęp online 24/7 i osobisty kontakt z klientem. Każdy przedsiębiorca zasługuje na indywidualne podejście i profesjonalną obsługę.
 
@@ -294,8 +295,8 @@ export const FAQ_ITEMS = [
 
 // SEO metadata
 export const SEO_CONTENT = {
-  title: "Księgowa dla Ciebie | Izabela Romańska | Biuro Rachunkowe Bydgoszcz",
-  description: "KSIĘGOWA DLA CIEBIE – Izabela Romańska. Biuro Rachunkowe Bydgoszcz ul. Głogowska 20E/2. Pełna księgowość, KPiR, ryczałt, kadry i płace. Rozliczenia CIT, PIT, VAT, ZUS. Certyfikat MF, ubezpieczenie OC. Tel: 694 908 338",
+  title: "Izabela Romańska Księgowa Dla Ciebie | Biuro Rachunkowe Bydgoszcz",
+  description: "Izabela Romańska Księgowa Dla Ciebie. Biuro Rachunkowe Bydgoszcz, Głogowska 20E lok. 2, 85-381. Pełna księgowość, KPiR, ryczałt, kadry i płace. Rozliczenia CIT, PIT, VAT, ZUS. NIP: 536-179-15-92. Certyfikat MF, ubezpieczenie OC. Tel: 694 908 338",
   keywords: [
     "biuro rachunkowe bydgoszcz",
     "księgowa bydgoszcz",
