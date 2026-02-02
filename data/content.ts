@@ -2,24 +2,27 @@ import { BusinessData, Service } from '../types';
 
 // SEO-optimized business information for Bydgoszcz
 export const BUSINESS_INFO: BusinessData = {
-  name: "Biuro Rachunkowe Księgowa Dla Ciebie",
-  fullName: "Biuro Rachunkowe Księgowa Dla Ciebie - Bydgoszcz Nakielska",
+  name: "KSIĘGOWA DLA CIEBIE – Izabela Romańska",
+  fullName: "KSIĘGOWA DLA CIEBIE – Izabela Romańska | Biuro Rachunkowe Bydgoszcz",
   address: {
-    street: "ul. Nakielska 156, I piętro",
+    street: "ul. Głogowska 20E/2",
     city: "Bydgoszcz",
-    zip: "85-391",
-    description: "Dogodna lokalizacja z bezpłatnym parkingiem. Łatwy dojazd z centrum Bydgoszczy."
+    zip: "85-000",
+    description: "Profesjonalna obsługa księgowa w sercu Bydgoszczy."
   },
   contact: {
     phone: "+48 694 908 338",
-    email: "biuro@ksiegowadlaciebie.pl"
+    email: "kdc.izabela@gmail.com"
+  },
+  social: {
+    facebook: "https://fb.com/IzabelaKsiegowaDlaCiebie"
   },
   openingHours: [
     { days: "Poniedziałek - Piątek", hours: "08:00 - 16:00" },
     { days: "Sobota", hours: "Po wcześniejszym umówieniu" },
     { days: "Niedziela", hours: "Zamknięte" }
   ],
-  // Legal business identifiers - UPDATE WITH REAL VALUES
+  // Legal business identifiers
   legal: {
     nip: "000-000-00-00",
     regon: "000000000",
@@ -109,18 +112,18 @@ export const TRUST_BADGES = [
 
 // About section - compelling story
 export const ABOUT_CONTENT = {
-  headline: "Nowoczesne Biuro Rachunkowe w Bydgoszczy",
-  subheadline: "ul. Nakielska 156",
-  story: `Jesteśmy nowoczesnym biurem rachunkowym, które łączy tradycyjne wartości z innowacyjnymi rozwiązaniami. Specjalizujemy się w digitalizacji dokumentów — Twoje faktury, umowy i sprawozdania przechowujemy bezpiecznie w chmurze, z dostępem 24/7.
+  headline: "Izabela Romańska",
+  subheadline: "– Twoja Księgowa w Bydgoszczy",
+  story: `Jestem Izabela Romańska, właścicielka biura rachunkowego KSIĘGOWA DLA CIEBIE. Od ponad 15 lat pomagam przedsiębiorcom w Bydgoszczy prowadzić finanse ich firm. Specjalizuję się w kompleksowej obsłudze księgowej, kadrach i płacach oraz doradztwie podatkowym.
 
-Nasz zespół to doświadczeni księgowi, którzy rozumieją wyzwania współczesnego przedsiębiorcy. Oferujemy nie tylko prowadzenie ksiąg, ale przede wszystkim optymalizację podatkową i strategiczne doradztwo, które realnie wpływa na Twój zysk.
+Moje biuro to nowoczesne podejście do księgowości — digitalizacja dokumentów, dostęp online 24/7 i osobisty kontakt z klientem. Każdy przedsiębiorca zasługuje na indywidualne podejście i profesjonalną obsługę.
 
-Wierzymy w indywidualne podejście — każdy klient ma dedykowanego opiekuna, który zna specyfikę jego branży i jest dostępny wtedy, gdy go potrzebujesz.`,
+Posiadam Certyfikat Ministra Finansów oraz pełne ubezpieczenie OC. Zaufało mi ponad 150 firm z Bydgoszczy i okolic.`,
   highlights: [
-    "Digitalizacja dokumentów i dostęp online 24/7",
-    "Optymalizacja podatkowa dopasowana do Twojej firmy",
-    "Dedykowany opiekun znający Twoją branżę",
-    "Wsparcie przy kontrolach skarbowych"
+    "Certyfikat Ministra Finansów",
+    "Ponad 15 lat doświadczenia w księgowości",
+    "Indywidualne podejście do każdego klienta",
+    "Pełne ubezpieczenie odpowiedzialności cywilnej"
   ]
 };
 
@@ -267,11 +270,12 @@ export const FAQ_ITEMS = [
 
 // SEO metadata
 export const SEO_CONTENT = {
-  title: "Biuro Rachunkowe Bydgoszcz – Kompleksowa Księgowość i Kadry | Nakielska 156",
-  description: "Biuro Rachunkowe Bydgoszcz ul. Nakielska 156 – pełna księgowość, KPiR, ryczałt, kadry i płace. Rozliczenia CIT, PIT, VAT, ZUS. Certyfikat Ministra Finansów, ubezpieczenie OC. Tel: 694 908 338",
+  title: "Księgowa dla Ciebie | Izabela Romańska | Biuro Rachunkowe Bydgoszcz",
+  description: "KSIĘGOWA DLA CIEBIE – Izabela Romańska. Biuro Rachunkowe Bydgoszcz ul. Głogowska 20E/2. Pełna księgowość, KPiR, ryczałt, kadry i płace. Rozliczenia CIT, PIT, VAT, ZUS. Certyfikat MF, ubezpieczenie OC. Tel: 694 908 338",
   keywords: [
     "biuro rachunkowe bydgoszcz",
-    "księgowa bydgoszcz nakielska",
+    "księgowa bydgoszcz",
+    "Izabela Romańska księgowa",
     "pełna księgowość bydgoszcz",
     "obsługa kadr i płac bydgoszcz",
     "księgowość dla spółek bydgoszcz",

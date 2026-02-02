@@ -20,6 +20,9 @@ export interface BusinessData {
     phone: string;
     email: string;
   };
+  social?: {
+    facebook?: string;
+  };
   openingHours: {
     days: string;
     hours: string;

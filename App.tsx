@@ -124,11 +124,11 @@ const Header = () => {
             aria-label="Scroll to top"
           >
             <div className="w-11 h-11 bg-navy-900 rounded-xl flex items-center justify-center shadow-depth-sm group-hover:shadow-depth-md transition-all duration-300">
-              <span className="text-white font-display font-bold text-xl">K</span>
+              <span className="text-white font-display font-bold text-lg">IR</span>
             </div>
             <div className="hidden sm:block">
-              <span className="font-display font-bold text-lg text-navy-900 block leading-tight">Księgowa</span>
-              <span className="text-xs text-navy-500 font-medium">Dla Ciebie</span>
+              <span className="font-display font-bold text-lg text-navy-900 block leading-tight">KSIĘGOWA</span>
+              <span className="text-xs text-navy-500 font-medium">DLA CIEBIE</span>
             </div>
           </button>
 
@@ -239,7 +239,7 @@ const Hero = () => (
             <motion.span className="block text-navy-900" variants={{ hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { duration: 0.8 } } }}>
               Bydgoszcz
             </motion.span>
-            <motion.span className="block text-gradient-gold text-3xl sm:text-4xl lg:text-5xl xl:text-6xl mt-3 mb-2 leading-relaxed pb-2" variants={{ hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { duration: 0.8 } } }}>
+            <motion.span className="block text-gradient-gold text-3xl sm:text-4xl lg:text-5xl xl:text-6xl mt-3 mb-2 leading-[1.5] pb-2" variants={{ hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { duration: 0.8 } } }}>
               Kompleksowa Księgowość i Kadry
             </motion.span>
           </h1>
@@ -721,11 +721,10 @@ const Pricing = () => (
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: idx * 0.1, duration: 0.5 }}
-            className={`relative bg-white rounded-3xl p-8 ${
-              tier.highlighted
-                ? 'ring-2 ring-gold-500 shadow-elevated scale-105'
-                : 'border border-navy-100 shadow-card hover:shadow-card-hover'
-            } transition-all duration-500`}
+            className={`relative bg-white rounded-3xl p-8 ${tier.highlighted
+              ? 'ring-2 ring-gold-500 shadow-elevated scale-105'
+              : 'border border-navy-100 shadow-card hover:shadow-card-hover'
+              } transition-all duration-500`}
           >
             {tier.badge && (
               <div className="absolute -top-4 left-1/2 -translate-x-1/2">
@@ -1178,13 +1177,13 @@ const Contact = () => {
             {/* Google Map */}
             <div className="rounded-3xl overflow-hidden h-64 lg:h-80 shadow-depth-md border border-navy-100">
               <iframe
-                src="https://maps.google.com/maps?q=Nakielska+156,+85-391+Bydgoszcz,+Poland&output=embed"
+                src="https://maps.google.com/maps?q=Głogowska+20E,+Bydgoszcz,+Poland&output=embed"
                 className="w-full h-full"
                 style={{ border: 0 }}
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title="Lokalizacja biura rachunkowego - ul. Nakielska 156, Bydgoszcz"
+                title="Lokalizacja biura rachunkowego - ul. Głogowska 20E/2, Bydgoszcz"
               />
             </div>
           </motion.div>
@@ -1203,11 +1202,11 @@ const Footer = () => (
         <div className="lg:col-span-1">
           <div className="flex items-center gap-3 mb-6">
             <div className="w-12 h-12 bg-gold-500 rounded-xl flex items-center justify-center">
-              <span className="text-navy-900 font-display font-bold text-xl">K</span>
+              <span className="text-navy-900 font-display font-bold text-lg">IR</span>
             </div>
             <div>
-              <span className="font-display font-bold text-lg block">Księgowa</span>
-              <span className="text-navy-400 text-sm">Dla Ciebie</span>
+              <span className="font-display font-bold text-lg block">KSIĘGOWA</span>
+              <span className="text-navy-400 text-sm">DLA CIEBIE</span>
             </div>
           </div>
           <p className="text-navy-300 text-sm leading-relaxed mb-6">
@@ -1268,7 +1267,7 @@ const Footer = () => (
               {BUSINESS_INFO.address.zip} {BUSINESS_INFO.address.city}
             </li>
             <li>
-              <a href={`tel:${BUSINESS_INFO.contact.phone}`} className="text-gold-400 hover:text-gold-300 transition-colors font-medium">
+              <a href={`tel:${BUSINESS_INFO.contact.phone.replace(/\s/g, '')}`} className="text-gold-400 hover:text-gold-300 transition-colors font-medium">
                 {BUSINESS_INFO.contact.phone}
               </a>
             </li>
@@ -1277,6 +1276,16 @@ const Footer = () => (
                 {BUSINESS_INFO.contact.email}
               </a>
             </li>
+            {BUSINESS_INFO.social?.facebook && (
+              <li>
+                <a href={BUSINESS_INFO.social.facebook} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-navy-300 hover:text-white transition-colors">
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                  </svg>
+                  Facebook
+                </a>
+              </li>
+            )}
           </ul>
         </div>
 
