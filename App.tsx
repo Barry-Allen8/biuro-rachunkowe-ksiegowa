@@ -82,7 +82,7 @@ const getIcon = (iconName: string) => {
 const scrollToSection = (sectionId: string) => {
   const element = document.getElementById(sectionId);
   if (element) {
-    const headerOffset = 130;
+    const headerOffset = 80;
     const elementPosition = element.getBoundingClientRect().top;
     const offsetPosition = elementPosition + window.scrollY - headerOffset;
     window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
@@ -115,7 +115,7 @@ const Header = () => {
 
   return (
     <>
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled ? 'glass py-2' : 'bg-transparent py-2'}`}>
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled ? 'glass py-3' : 'bg-transparent py-3'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 flex justify-between items-center">
           {/* Logo */}
           <button
@@ -123,11 +123,11 @@ const Header = () => {
             className="flex items-center gap-3 group cursor-pointer"
             aria-label="Przewiń do góry strony"
           >
-            <div className="h-[90px] sm:h-[110px] lg:h-[120px] flex items-center justify-center transition-all duration-300 group-hover:scale-105">
+            <div className="h-[42px] sm:h-[46px] lg:h-[50px] flex items-center justify-center transition-all duration-300 group-hover:scale-105">
               <img
                 src="/IR.svg"
                 alt="IR Księgowa dla Ciebie - Biuro Rachunkowe Bydgoszcz - logo"
-                className="h-full w-auto max-w-[300px] sm:max-w-[360px] lg:max-w-[420px] object-contain drop-shadow-sm transition-opacity duration-300 group-hover:opacity-90"
+                className="h-full w-auto max-w-[160px] sm:max-w-[180px] lg:max-w-[200px] object-contain drop-shadow-sm transition-opacity duration-300 group-hover:opacity-90"
                 loading="eager"
                 decoding="async"
               />
