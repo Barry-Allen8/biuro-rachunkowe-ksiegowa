@@ -123,8 +123,14 @@ const Header = () => {
             className="flex items-center gap-3 group"
             aria-label="Scroll to top"
           >
-            <div className="w-11 h-11 bg-navy-900 rounded-xl flex items-center justify-center shadow-depth-sm group-hover:shadow-depth-md transition-all duration-300">
-              <span className="text-white font-display font-bold text-lg">IR</span>
+            <div className="w-11 h-11 bg-navy-900 rounded-xl flex items-center justify-center shadow-depth-sm group-hover:shadow-depth-md transition-all duration-300 overflow-hidden">
+              <img
+                src="/logo.png"
+                alt="Księgowa dla Ciebie logo"
+                className="w-full h-full object-contain"
+                loading="lazy"
+                decoding="async"
+              />
             </div>
             <div className="hidden sm:block">
               <span className="font-display font-bold text-lg text-navy-900 block leading-tight">KSIĘGOWA</span>
@@ -1201,8 +1207,14 @@ const Footer = () => (
         {/* Brand */}
         <div className="lg:col-span-1">
           <div className="flex items-center gap-3 mb-6">
-            <div className="w-12 h-12 bg-gold-500 rounded-xl flex items-center justify-center">
-              <span className="text-navy-900 font-display font-bold text-lg">IR</span>
+            <div className="w-12 h-12 bg-gold-500 rounded-xl flex items-center justify-center overflow-hidden">
+              <img
+                src="/logo.png"
+                alt="Księgowa dla Ciebie logo"
+                className="w-full h-full object-contain"
+                loading="lazy"
+                decoding="async"
+              />
             </div>
             <div>
               <span className="font-display font-bold text-lg block">KSIĘGOWA</span>
