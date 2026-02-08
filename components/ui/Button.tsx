@@ -1,5 +1,5 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useRef } from 'react';
+import { motion, useMotionValue, useSpring } from 'framer-motion';
 
 interface ButtonProps {
   children: React.ReactNode;
@@ -35,13 +35,44 @@ export const Button: React.FC<ButtonProps> = ({
     gold: "bg-gradient-to-r from-gold-500 to-gold-400 text-navy-900 font-bold hover:shadow-gold"
   };
 
+  const buttonRef = useRef<HTMLButtonElement | null>(null);
+  const isMagnetic = variant === 'gold' && !disabled;
+  const magneticX = useMotionValue(0);
+  const magneticY = useMotionValue(0);
+  const springX = useSpring(magneticX, { stiffness: 380, damping: 22, mass: 0.2 });
+  const springY = useSpring(magneticY, { stiffness: 380, damping: 22, mass: 0.2 });
+
+  const resetMagnet = () => {
+    magneticX.set(0);
+    magneticY.set(0);
+  };
+
+  const handleMouseMove = (event: React.MouseEvent<HTMLButtonElement>) => {
+    if (!isMagnetic || !buttonRef.current) return;
+    if (typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches) return;
+
+    const rect = buttonRef.current.getBoundingClientRect();
+    const offsetX = event.clientX - (rect.left + rect.width / 2);
+    const offsetY = event.clientY - (rect.top + rect.height / 2);
+    const strength = 0.16;
+    const maxOffset = 8;
+
+    magneticX.set(Math.max(-maxOffset, Math.min(maxOffset, offsetX * strength)));
+    magneticY.set(Math.max(-maxOffset, Math.min(maxOffset, offsetY * strength)));
+  };
+
   return (
     <motion.button
-      whileHover={disabled ? {} : { y: -1, scale: 1.01 }}
+      ref={buttonRef}
+      whileHover={disabled ? {} : isMagnetic ? { scale: 1.02 } : { y: -1, scale: 1.01 }}
       whileTap={disabled ? {} : { scale: 0.98 }}
       transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+      style={isMagnetic ? { x: springX, y: springY } : undefined}
       type={type}
       onClick={onClick}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={resetMagnet}
+      onBlur={resetMagnet}
       disabled={disabled}
       className={`${baseStyles} ${sizeStyles[size]} ${variants[variant]} ${className}`}
     >

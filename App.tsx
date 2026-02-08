@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useEffect, useRef, useState } from 'react';
+import { motion, AnimatePresence, LayoutGroup, type Variants, useInView, useScroll, useSpring } from 'framer-motion';
 import { SERVICES, BUSINESS_INFO, TRUST_FACTORS, TRUST_BADGES, PRICING_TIERS, TESTIMONIALS, ABOUT_CONTENT, FAQ_ITEMS } from './data/content';
 import { Button } from './components/ui/Button';
 import { CookieConsent } from './components/CookieConsent';
@@ -78,6 +78,98 @@ const getIcon = (iconName: string) => {
   return Icons[iconName as keyof typeof Icons] || Icons.check;
 };
 
+const NAV_LINKS = [
+  { href: 'services', label: 'Usługi' },
+  { href: 'about', label: 'O firmie' },
+  { href: 'pricing', label: 'Cennik' },
+  { href: 'contact', label: 'Kontakt' },
+];
+
+const STAGGER_CONTAINER_VARIANTS: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.12,
+      delayChildren: 0.08,
+    },
+  },
+};
+
+const STAGGER_ITEM_VARIANTS: Variants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.55,
+      ease: [0.16, 1, 0.3, 1],
+    },
+  },
+};
+
+interface CountUpNumberProps {
+  to: number;
+  suffix?: string;
+  duration?: number;
+  className?: string;
+}
+
+const CountUpNumber = ({
+  to,
+  suffix = '',
+  duration = 1.2,
+  className = '',
+}: CountUpNumberProps) => {
+  const elementRef = useRef<HTMLSpanElement | null>(null);
+  const isInView = useInView(elementRef, { once: true, margin: '-80px' });
+  const [value, setValue] = useState(0);
+
+  useEffect(() => {
+    if (!isInView) return;
+
+    let animationFrame = 0;
+    const startTime = performance.now();
+
+    const tick = (timestamp: number) => {
+      const progress = Math.min((timestamp - startTime) / (duration * 1000), 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setValue(Math.round(to * eased));
+
+      if (progress < 1) {
+        animationFrame = requestAnimationFrame(tick);
+      }
+    };
+
+    animationFrame = requestAnimationFrame(tick);
+
+    return () => cancelAnimationFrame(animationFrame);
+  }, [duration, isInView, to]);
+
+  return (
+    <span ref={elementRef} className={className}>
+      {value}
+      {suffix}
+    </span>
+  );
+};
+
+const ScrollProgressBar = () => {
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 120,
+    damping: 30,
+    mass: 0.2,
+  });
+
+  return (
+    <motion.div
+      style={{ scaleX }}
+      className="fixed top-0 left-0 right-0 h-1 origin-left bg-gradient-to-r from-gold-500 via-gold-400 to-emerald-400 z-[60]"
+    />
+  );
+};
+
 // Smooth scroll helper
 const scrollToSection = (sectionId: string) => {
   const element = document.getElementById(sectionId);
@@ -93,6 +185,7 @@ const scrollToSection = (sectionId: string) => {
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('');
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
@@ -100,18 +193,37 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    const updateActiveSection = () => {
+      const scrollPosition = window.scrollY + 140;
+      let currentSection = '';
+
+      NAV_LINKS.forEach(({ href }) => {
+        const section = document.getElementById(href);
+        if (section && scrollPosition >= section.offsetTop) {
+          currentSection = href;
+        }
+      });
+
+      setActiveSection(currentSection);
+    };
+
+    updateActiveSection();
+    window.addEventListener('scroll', updateActiveSection, { passive: true });
+    window.addEventListener('resize', updateActiveSection);
+
+    return () => {
+      window.removeEventListener('scroll', updateActiveSection);
+      window.removeEventListener('resize', updateActiveSection);
+    };
+  }, []);
+
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
     e.preventDefault();
     scrollToSection(sectionId);
+    setActiveSection(sectionId);
     setIsMobileMenuOpen(false);
   };
-
-  const navLinks = [
-    { href: 'services', label: 'Usługi' },
-    { href: 'about', label: 'O firmie' },
-    { href: 'pricing', label: 'Cennik' },
-    { href: 'contact', label: 'Kontakt' },
-  ];
 
   return (
     <>
@@ -135,18 +247,27 @@ const Header = () => {
           </button>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={`#${link.href}`}
-                onClick={(e) => handleNavClick(e, link.href)}
-                className="text-navy-700 hover:text-navy-900 font-medium text-sm transition-colors relative group"
-              >
-                {link.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gold-500 group-hover:w-full transition-all duration-300" />
-              </a>
-            ))}
+          <div className="hidden lg:flex items-center gap-2">
+            <LayoutGroup id="desktop-nav">
+              {NAV_LINKS.map((link) => (
+                <a
+                  key={link.href}
+                  href={`#${link.href}`}
+                  onClick={(e) => handleNavClick(e, link.href)}
+                  className={`relative px-3 py-2 rounded-full font-medium text-sm transition-colors ${activeSection === link.href ? 'text-navy-900' : 'text-navy-700 hover:text-navy-900'
+                    }`}
+                >
+                  {activeSection === link.href && (
+                    <motion.span
+                      layoutId="active-nav-pill"
+                      className="absolute inset-0 rounded-full bg-navy-900/10"
+                      transition={{ type: 'spring', stiffness: 420, damping: 35 }}
+                    />
+                  )}
+                  <span className="relative z-10">{link.label}</span>
+                </a>
+              ))}
+            </LayoutGroup>
           </div>
 
           {/* CTA Buttons */}
@@ -194,7 +315,7 @@ const Header = () => {
               className="lg:hidden bg-white border-t border-navy-100"
             >
               <div className="max-w-7xl mx-auto px-4 py-4 space-y-2">
-                {navLinks.map((link) => (
+                {NAV_LINKS.map((link) => (
                   <a
                     key={link.href}
                     href={`#${link.href}`}
@@ -312,15 +433,21 @@ const Hero = () => (
             {/* Stats Overlay */}
             <div className="mt-6 grid grid-cols-3 gap-4">
               <div className="text-center p-4 bg-navy-50 rounded-xl">
-                <p className="text-2xl font-display font-bold text-navy-900">150+</p>
+                <p className="text-2xl font-display font-bold text-navy-900">
+                  <CountUpNumber to={150} suffix="+" />
+                </p>
                 <p className="text-xs text-navy-500 font-medium">Klientów</p>
               </div>
               <div className="text-center p-4 bg-navy-50 rounded-xl">
-                <p className="text-2xl font-display font-bold text-navy-900">15+</p>
+                <p className="text-2xl font-display font-bold text-navy-900">
+                  <CountUpNumber to={15} suffix="+" />
+                </p>
                 <p className="text-xs text-navy-500 font-medium">Lat doświadczenia</p>
               </div>
               <div className="text-center p-4 bg-navy-50 rounded-xl">
-                <p className="text-2xl font-display font-bold text-navy-900">100%</p>
+                <p className="text-2xl font-display font-bold text-navy-900">
+                  <CountUpNumber to={100} suffix="%" />
+                </p>
                 <p className="text-xs text-navy-500 font-medium">Satysfakcji</p>
               </div>
             </div>
@@ -479,15 +606,15 @@ const CertyfikatySection = () => (
         className="mt-16 flex flex-wrap justify-center items-center gap-4 sm:gap-6 text-center"
       >
         <div className="px-6 py-3.5 bg-white/5 rounded-full border border-white/10 hover:bg-white/10 transition-colors">
-          <span className="text-gold-400 font-bold">15+</span>
+          <CountUpNumber to={15} suffix="+" className="text-gold-400 font-bold" />
           <span className="text-navy-200 ml-2">lat doświadczenia</span>
         </div>
         <div className="px-6 py-3.5 bg-white/5 rounded-full border border-white/10 hover:bg-white/10 transition-colors">
-          <span className="text-gold-400 font-bold">150+</span>
+          <CountUpNumber to={150} suffix="+" className="text-gold-400 font-bold" />
           <span className="text-navy-200 ml-2">obsłużonych firm</span>
         </div>
         <div className="px-6 py-3.5 bg-white/5 rounded-full border border-white/10 hover:bg-white/10 transition-colors">
-          <span className="text-gold-400 font-bold">100%</span>
+          <CountUpNumber to={100} suffix="%" className="text-gold-400 font-bold" />
           <span className="text-navy-200 ml-2">zgodność z RODO</span>
         </div>
       </motion.div>
@@ -528,14 +655,17 @@ const Services = () => (
         </motion.p>
       </div>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-        {SERVICES.map((service, idx) => (
+      <motion.div
+        variants={STAGGER_CONTAINER_VARIANTS}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: '-80px' }}
+        className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8"
+      >
+        {SERVICES.map((service) => (
           <motion.div
             key={service.id}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ delay: idx * 0.1, duration: 0.5 }}
+            variants={STAGGER_ITEM_VARIANTS}
             className="group bg-white p-8 rounded-2xl border border-navy-100 hover:border-navy-200 hover:shadow-card-hover transition-all duration-500"
           >
             <div className="w-14 h-14 bg-navy-50 text-navy-900 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-navy-900 group-hover:text-white transition-all duration-500">
@@ -558,7 +688,7 @@ const Services = () => (
             )}
           </motion.div>
         ))}
-      </div>
+      </motion.div>
     </div>
   </section>
 );
@@ -713,14 +843,17 @@ const TestimonialsSection = () => (
         </motion.p>
       </div>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-        {TESTIMONIALS.map((testimonial, idx) => (
+      <motion.div
+        variants={STAGGER_CONTAINER_VARIANTS}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: '-80px' }}
+        className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
+      >
+        {TESTIMONIALS.map((testimonial) => (
           <motion.div
             key={testimonial.id}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: idx * 0.1, duration: 0.5 }}
+            variants={STAGGER_ITEM_VARIANTS}
             className="bg-white p-8 rounded-2xl shadow-card hover:shadow-card-hover transition-all duration-500 border border-navy-100"
           >
             <div className="flex gap-1 mb-4">
@@ -742,7 +875,7 @@ const TestimonialsSection = () => (
             </div>
           </motion.div>
         ))}
-      </div>
+      </motion.div>
     </div>
   </section>
 );
@@ -1630,6 +1763,7 @@ const BackToTop = () => {
 export default function App() {
   return (
     <div className="antialiased bg-white">
+      <ScrollProgressBar />
       <Header />
       <Hero />
       <TrustBadgesSection />
