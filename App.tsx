@@ -416,7 +416,39 @@ const Hero = () => (
       >
         <div className="flex flex-col gap-8">
           {/* Main Card */}
-          <div className="bg-white rounded-3xl p-8 shadow-elevated border border-navy-100">
+          <motion.div
+            initial="rest"
+            animate="rest"
+            whileHover="hover"
+            style={{ transformPerspective: 1000 }}
+            variants={{
+              rest: {
+                y: 0,
+                scale: 1,
+                rotateX: 0,
+                rotateY: 0,
+                boxShadow: '0 20px 45px rgba(15, 23, 42, 0.12)',
+              },
+              hover: {
+                y: -8,
+                scale: 1.015,
+                rotateX: 2,
+                rotateY: -2,
+                boxShadow: '0 32px 60px rgba(15, 23, 42, 0.2)',
+              },
+            }}
+            transition={{ type: 'spring', stiffness: 260, damping: 24 }}
+            className="relative overflow-hidden bg-white rounded-3xl p-8 shadow-elevated border border-navy-100 will-change-transform"
+          >
+            <motion.span
+              aria-hidden="true"
+              className="pointer-events-none absolute -inset-y-8 -left-1/3 w-1/3 bg-gradient-to-r from-transparent via-white/50 to-transparent"
+              variants={{
+                rest: { x: '-220%', opacity: 0 },
+                hover: { x: '380%', opacity: [0, 0.85, 0] },
+              }}
+              transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
+            />
             <picture>
               <source srcSet="/hero-workspace.webp" type="image/webp" />
               <img
@@ -451,7 +483,7 @@ const Hero = () => (
                 <p className="text-xs text-navy-500 font-medium">Satysfakcji</p>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Certificate Badge - positioned in document flow to prevent overlap */}
           <motion.div
